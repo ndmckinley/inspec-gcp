@@ -24,3 +24,33 @@
 #     CONTRIBUTING.md located at the root of this package.
 #
 # ----------------------------------------------------------------------------
+
+# A provider to manage Google Compute Engine resources.
+class Zone < Inspec.resource(1)
+
+  name 'google_compute_zone'
+  desc 'Zone'
+  supports platform: 'gcp-mm'
+
+  attr_reader :creation_timestamp
+  attr_reader :deprecated
+  attr_reader :description
+  attr_reader :id
+  attr_reader :name
+  attr_reader :region
+  attr_reader :status
+  def base
+    'https://www.googleapis.com/compute/v1/'
+  end
+
+  def url
+    'projects/{{project}}/zones/{{name}}'
+  end
+
+  # TODO
+  def parse end
+
+  def exists?
+    !@fetched.nil?
+  end
+end
