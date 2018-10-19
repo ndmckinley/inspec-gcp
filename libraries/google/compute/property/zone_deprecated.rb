@@ -25,43 +25,27 @@
 #
 # ----------------------------------------------------------------------------
 
-require 'google/compute/property/zone_deprecated'
-require 'google/hash_utils'
-require 'inspec/resource'
+module Google
+  module Compute
+    module Property
+      class ZoneDeprecated
+        attr_reader :deleted
+        attr_reader :deprecated
+        attr_reader :obsolete
+        attr_reader :replacement
+        attr_reader :state
 
-# A provider to manage Google Compute Engine resources.
-class Zone < Inspec.resource(1)
 
-  name 'google_compute_zone'
-  desc 'Zone'
-  supports platform: 'gcp-mm'
+        def initialize(args = nil)
+          return nil if args.nil?
+          @deleted = args['deleted']
+          @deprecated = args['deprecated']
+          @obsolete = args['obsolete']
+          @replacement = args['replacement']
+          @state = args['state']
+        end
+      end
 
-  attr_reader :creation_timestamp
-  attr_reader :deprecated
-  attr_reader :description
-  attr_reader :id
-  attr_reader :name
-  attr_reader :region
-  attr_reader :status
-  def base
-    'https://www.googleapis.com/compute/v1/'
-  end
-
-  def url
-    'projects/{{project}}/zones/{{name}}'
-  end
-
-  def parse
-    @creation_timestamp = @fetched['creationTimestamp']
-    @deprecated = Google::Compute::Property::ZoneDeprecated.new(@fetched['deprecated'])
-    @description = @fetched['description']
-    @id = @fetched['id']
-    @name = @fetched['name']
-    @region = @fetched['region']
-    @status = @fetched['status']
-  end
-
-  def exists?
-    !@fetched.nil?
+    end
   end
 end
