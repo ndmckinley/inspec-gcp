@@ -25,10 +25,6 @@
 #
 # ----------------------------------------------------------------------------
 
-require 'google/compute/property/zone_deprecated'
-require 'google/hash_utils'
-require 'inspec/resource'
-
 # A provider to manage Google Compute Engine resources.
 class Zone < Inspec.resource(1)
 
@@ -51,15 +47,8 @@ class Zone < Inspec.resource(1)
     'projects/{{project}}/zones/{{name}}'
   end
 
-  def parse
-    @creation_timestamp = @fetched['creationTimestamp']
-    @deprecated = Google::Compute::Property::ZoneDeprecated.new(@fetched['deprecated'])
-    @description = @fetched['description']
-    @id = @fetched['id']
-    @name = @fetched['name']
-    @region = @fetched['region']
-    @status = @fetched['status']
-  end
+  # TODO
+  def parse end
 
   def exists?
     !@fetched.nil?
