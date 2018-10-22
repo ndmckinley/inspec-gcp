@@ -38,9 +38,9 @@ module Google
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = args['deleted']
-          @deprecated = args['deprecated']
-          @obsolete = args['obsolete']
+          @deleted = Time.new(@fetched['deleted'])
+          @deprecated = Time.new(@fetched['deprecated'])
+          @obsolete = Time.new(@fetched['obsolete'])
           @replacement = args['replacement']
           @state = args['state']
         end

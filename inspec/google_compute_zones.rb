@@ -24,3 +24,58 @@
 #     CONTRIBUTING.md located at the root of this package.
 #
 # ----------------------------------------------------------------------------
+
+class Zones < Inspec.resource(1)
+
+  name 'google_compute_zones'
+  desc 'Zone plural resource'
+  supports platform: 'gcp2'
+
+  filter_table_config = FilterTable.create
+
+  filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
+  filter_table_config.add(:deprecateds, field: :deprecated)
+  filter_table_config.add(:descriptions, field: :description)
+  filter_table_config.add(:ids, field: :id)
+  filter_table_config.add(:names, field: :name)
+  filter_table_config.add(:regions, field: :region)
+  filter_table_config.add(:statuses, field: :status)
+
+  filter_table_config.connect(self, :fetch_data)
+
+  def base
+    'https://www.googleapis.com/compute/v1/'
+  end
+
+  def url
+    'projects/{{project}}/zones'
+  end
+
+  def initialize(params = {}) 
+    @params = params
+  end
+
+  def fetch_resource(params)
+    get_request = inspec.backend.fetch(base, url, params)
+  end
+
+  def fetch_data
+  	@data = fetch_wrapped_resource('compute#zoneList', 'items')
+  end
+
+  def fetch_wrapped_resource(wrap_kind, wrap_path)
+    result = fetch_resource(@params)
+    return if result.nil? || !result.key?(wrap_path)
+
+    # Conversion of string -> object hash to symbol -> object hash that InSpec needs
+    converted = []
+    result[wrap_path].each do |hash|
+      hash_with_symbols = {}
+      hash.each_pair { |k, v| hash_with_symbols[k.to_sym] = v }
+      converted.push(hash_with_symbols)
+    end
+
+    converted
+  end
+
+end
