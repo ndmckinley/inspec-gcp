@@ -51,6 +51,15 @@ class Zone < Inspec.resource(1)
     'projects/{{project}}/zones/{{name}}'
   end
 
+  def initialize(params)
+    @fetched = fetch_resource(params)
+    parse unless @fetched.nil?
+  end
+
+  def fetch_resource(params)
+    get_request = inspec.backend.fetch(base, url, params)
+  end
+
   def parse
     @creation_timestamp = @fetched['creationTimestamp']
     @deprecated = Google::Compute::Property::ZoneDeprecated.new(@fetched['deprecated'])
