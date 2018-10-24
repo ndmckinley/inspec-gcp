@@ -25,24 +25,25 @@
 #
 # ----------------------------------------------------------------------------
 
+require 'google/compute/property/instance_source_image_encryption_key'
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class InstanceInitializeparams
+        attr_reader :disk_name
+        attr_reader :disk_size_gb
+        attr_reader :disk_type
+        attr_reader :source_image
+        attr_reader :source_image_encryption_key
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @disk_name = args['diskName']
+          @disk_size_gb = args['diskSizeGb']
+          @disk_type = args['diskType']
+          @source_image = args['sourceImage']
+          @source_image_encryption_key = Google::Compute::Property::InstanceSourceimageencryptionkey.new(args['sourceImageEncryptionKey'])
         end
       end
 
