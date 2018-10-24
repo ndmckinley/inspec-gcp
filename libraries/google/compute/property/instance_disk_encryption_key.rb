@@ -28,21 +28,17 @@
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class InstanceDiskencryptionkey
+        attr_reader :raw_key
+        attr_reader :rsa_encrypted_key
+        attr_reader :sha256
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @raw_key = args['rawKey']
+          @rsa_encrypted_key = args['rsaEncryptedKey']
+          @sha256 = args['sha256']
         end
       end
 
