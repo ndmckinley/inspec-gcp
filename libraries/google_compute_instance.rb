@@ -106,4 +106,5 @@ class Instance < Inspec.resource(1)
   def exists?
     !@fetched.nil?
   end
+
 end

@@ -81,4 +81,5 @@ class Zone < Inspec.resource(1)
   def exists?
     !@fetched.nil?
   end
+
 end
