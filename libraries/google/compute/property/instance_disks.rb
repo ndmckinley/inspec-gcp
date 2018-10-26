@@ -25,27 +25,47 @@
 #
 # ----------------------------------------------------------------------------
 
+require 'google/compute/property/instance_disk_encryption_key'
+require 'google/compute/property/instance_initialize_params'
+require 'google/compute/property/instance_source_image_encryption_key'
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class InstanceDisks
+        attr_reader :auto_delete
+        attr_reader :boot
+        attr_reader :device_name
+        attr_reader :disk_encryption_key
+        attr_reader :index
+        attr_reader :initialize_params
+        attr_reader :interface
+        attr_reader :mode
+        attr_reader :source
+        attr_reader :type
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @auto_delete = args['autoDelete']
+          @boot = args['boot']
+          @device_name = args['deviceName']
+          @disk_encryption_key = Google::Compute::Property::InstanceDiskencryptionkey.new(args['diskEncryptionKey'])
+          @index = args['index']
+          @initialize_params = Google::Compute::Property::InstanceInitializeparams.new(args['initializeParams'])
+          @interface = args['interface']
+          @mode = args['mode']
+          @source = args['source']
+          @type = args['type']
         end
       end
 
+      class InstanceDisksArray
+        def self.parse(value)
+          return if value.nil?
+          return InstanceDisks.new(value) unless value.is_a?(::Array)
+          value.map { |v| InstanceDisks.new(v) }
+        end
+      end
     end
   end
 end

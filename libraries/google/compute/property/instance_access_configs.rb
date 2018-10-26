@@ -28,24 +28,27 @@
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class InstanceAccessconfigs
+        attr_reader :name
+        attr_reader :nat_ip
+        attr_reader :type
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @name = args['name']
+          @nat_ip = args['natIP']
+          @type = args['type']
         end
       end
 
+      class InstanceAccessconfigsArray
+        def self.parse(value)
+          return if value.nil?
+          return InstanceAccessconfigs.new(value) unless value.is_a?(::Array)
+          value.map { |v| InstanceAccessconfigs.new(v) }
+        end
+      end
     end
   end
 end
