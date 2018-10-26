@@ -25,27 +25,38 @@
 #
 # ----------------------------------------------------------------------------
 
+require 'google/compute/property/instance_access_configs'
+require 'google/compute/property/instance_alias_ip_ranges'
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class InstanceNetworkinterfaces
+        attr_reader :access_configs
+        attr_reader :alias_ip_ranges
+        attr_reader :name
+        attr_reader :network
+        attr_reader :network_ip
+        attr_reader :subnetwork
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @access_configs = Google::Compute::Property::InstanceAccessconfigsArray.parse(args['accessConfigs'])
+          @alias_ip_ranges = Google::Compute::Property::InstanceAliasiprangesArray.parse(args['aliasIpRanges'])
+          @name = args['name']
+          @network = args['network']
+          @network_ip = args['networkIP']
+          @subnetwork = args['subnetwork']
         end
       end
 
+      class InstanceNetworkinterfacesArray
+        def self.parse(value)
+          return if value.nil?
+          return InstanceNetworkinterfaces.new(value) unless value.is_a?(::Array)
+          value.map { |v| InstanceNetworkinterfaces.new(v) }
+        end
+      end
     end
   end
 end

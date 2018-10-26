@@ -28,21 +28,17 @@
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class InstanceScheduling
+        attr_reader :automatic_restart
+        attr_reader :on_host_maintenance
+        attr_reader :preemptible
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @automatic_restart = args['automaticRestart']
+          @on_host_maintenance = args['onHostMaintenance']
+          @preemptible = args['preemptible']
         end
       end
 

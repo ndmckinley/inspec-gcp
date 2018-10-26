@@ -28,24 +28,25 @@
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class InstanceGuestaccelerators
+        attr_reader :accelerator_count
+        attr_reader :accelerator_type
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @accelerator_count = args['acceleratorCount']
+          @accelerator_type = args['acceleratorType']
         end
       end
 
+      class InstanceGuestacceleratorsArray
+        def self.parse(value)
+          return if value.nil?
+          return InstanceGuestaccelerators.new(value) unless value.is_a?(::Array)
+          value.map { |v| InstanceGuestaccelerators.new(v) }
+        end
+      end
     end
   end
 end

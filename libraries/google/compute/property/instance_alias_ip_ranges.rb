@@ -28,24 +28,25 @@
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class InstanceAliasipranges
+        attr_reader :ip_cidr_range
+        attr_reader :subnetwork_range_name
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @ip_cidr_range = args['ipCidrRange']
+          @subnetwork_range_name = args['subnetworkRangeName']
         end
       end
 
+      class InstanceAliasiprangesArray
+        def self.parse(value)
+          return if value.nil?
+          return InstanceAliasipranges.new(value) unless value.is_a?(::Array)
+          value.map { |v| InstanceAliasipranges.new(v) }
+        end
+      end
     end
   end
 end
