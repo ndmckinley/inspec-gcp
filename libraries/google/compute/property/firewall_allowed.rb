@@ -28,24 +28,25 @@
 module Google
   module Compute
     module Property
-      class ZoneDeprecated
-        attr_reader :deleted
-        attr_reader :deprecated
-        attr_reader :obsolete
-        attr_reader :replacement
-        attr_reader :state
+      class FirewallAllowed
+        attr_reader :ip_protocol
+        attr_reader :ports
 
 
         def initialize(args = nil)
           return nil if args.nil?
-          @deleted = DateTime.parse(args['deleted'])
-          @deprecated = DateTime.parse(args['deprecated'])
-          @obsolete = DateTime.parse(args['obsolete'])
-          @replacement = args['replacement']
-          @state = args['state']
+          @ip_protocol = args['IPProtocol']
+          @ports = args['ports']
         end
       end
 
+      class FirewallAllowedArray
+        def self.parse(value)
+          return if value.nil?
+          return FirewallAllowed.new(value) unless value.is_a?(::Array)
+          value.map { |v| FirewallAllowed.new(v) }
+        end
+      end
     end
   end
 end
