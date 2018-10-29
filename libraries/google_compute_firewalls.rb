@@ -66,7 +66,7 @@ class Firewalls < Inspec.resource(1)
   end
 
   def fetch_resource(params)
-    get_request = inspec.backend.fetch(base, url, params)
+    inspec.backend.fetch_all(base, url, params)
   end
 
   def fetch_data
@@ -74,15 +74,19 @@ class Firewalls < Inspec.resource(1)
   end
 
   def fetch_wrapped_resource(wrap_kind, wrap_path)
+    # fetch_resource returns an array of responses (to handle pagination)
     result = fetch_resource(@params)
-    return if result.nil? || !result.key?(wrap_path)
+    return if result.nil?
 
     # Conversion of string -> object hash to symbol -> object hash that InSpec needs
     converted = []
-    result[wrap_path].each do |hash|
-      hash_with_symbols = {}
-      hash.each_pair { |k, v| hash_with_symbols[k.to_sym] = v }
-      converted.push(hash_with_symbols)
+    result.each do |response|
+      return if response.nil? || !response.key?(wrap_path)
+      response[wrap_path].each do |hash|
+        hash_with_symbols = {}
+        hash.each_pair { |k, v| hash_with_symbols[k.to_sym] = v }
+        converted.push(hash_with_symbols)
+      end
     end
 
     converted
