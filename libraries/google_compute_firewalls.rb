@@ -35,21 +35,21 @@ class Firewalls < Inspec.resource(1)
   filter_table_config = FilterTable.create
 
   filter_table_config.add(:alloweds, field: :allowed)
-  filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
+  filter_table_config.add(:creation_timestamps, field: :creationTimestamp)
   filter_table_config.add(:denieds, field: :denied)
   filter_table_config.add(:descriptions, field: :description)
-  filter_table_config.add(:destination_ranges, field: :destination_ranges)
+  filter_table_config.add(:destination_ranges, field: :destinationRanges)
   filter_table_config.add(:directions, field: :direction)
   filter_table_config.add(:disableds, field: :disabled)
   filter_table_config.add(:ids, field: :id)
   filter_table_config.add(:names, field: :name)
   filter_table_config.add(:networks, field: :network)
   filter_table_config.add(:priorities, field: :priority)
-  filter_table_config.add(:source_ranges, field: :source_ranges)
-  filter_table_config.add(:source_service_accounts, field: :source_service_accounts)
-  filter_table_config.add(:source_tags, field: :source_tags)
-  filter_table_config.add(:target_service_accounts, field: :target_service_accounts)
-  filter_table_config.add(:target_tags, field: :target_tags)
+  filter_table_config.add(:source_ranges, field: :sourceRanges)
+  filter_table_config.add(:source_service_accounts, field: :sourceServiceAccounts)
+  filter_table_config.add(:source_tags, field: :sourceTags)
+  filter_table_config.add(:target_service_accounts, field: :targetServiceAccounts)
+  filter_table_config.add(:target_tags, field: :targetTags)
 
   filter_table_config.connect(self, :fetch_data)
 
@@ -66,7 +66,7 @@ class Firewalls < Inspec.resource(1)
   end
 
   def fetch_resource(params)
-    get_request = inspec.backend.fetch(base, url, params)
+    inspec.backend.fetch_all(base, url, params)
   end
 
   def fetch_data
@@ -74,15 +74,19 @@ class Firewalls < Inspec.resource(1)
   end
 
   def fetch_wrapped_resource(wrap_kind, wrap_path)
+    # fetch_resource returns an array of responses (to handle pagination)
     result = fetch_resource(@params)
-    return if result.nil? || !result.key?(wrap_path)
+    return if result.nil?
 
     # Conversion of string -> object hash to symbol -> object hash that InSpec needs
     converted = []
-    result[wrap_path].each do |hash|
-      hash_with_symbols = {}
-      hash.each_pair { |k, v| hash_with_symbols[k.to_sym] = v }
-      converted.push(hash_with_symbols)
+    result.each do |response|
+      return if response.nil? || !response.key?(wrap_path)
+      response[wrap_path].each do |hash|
+        hash_with_symbols = {}
+        hash.each_pair { |k, v| hash_with_symbols[k.to_sym] = v }
+        converted.push(hash_with_symbols)
+      end
     end
 
     converted

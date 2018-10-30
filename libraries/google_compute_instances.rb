@@ -34,22 +34,22 @@ class Instances < Inspec.resource(1)
 
   filter_table_config = FilterTable.create
 
-  filter_table_config.add(:can_ip_forwards, field: :can_ip_forward)
-  filter_table_config.add(:cpu_platforms, field: :cpu_platform)
-  filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
+  filter_table_config.add(:can_ip_forwards, field: :canIpForward)
+  filter_table_config.add(:cpu_platforms, field: :cpuPlatform)
+  filter_table_config.add(:creation_timestamps, field: :creationTimestamp)
   filter_table_config.add(:disks, field: :disks)
-  filter_table_config.add(:guest_accelerators, field: :guest_accelerators)
+  filter_table_config.add(:guest_accelerators, field: :guestAccelerators)
   filter_table_config.add(:ids, field: :id)
-  filter_table_config.add(:label_fingerprints, field: :label_fingerprint)
+  filter_table_config.add(:label_fingerprints, field: :labelFingerprint)
   filter_table_config.add(:metadata, field: :metadata)
-  filter_table_config.add(:machine_types, field: :machine_type)
-  filter_table_config.add(:min_cpu_platforms, field: :min_cpu_platform)
+  filter_table_config.add(:machine_types, field: :machineType)
+  filter_table_config.add(:min_cpu_platforms, field: :minCpuPlatform)
   filter_table_config.add(:names, field: :name)
-  filter_table_config.add(:network_interfaces, field: :network_interfaces)
+  filter_table_config.add(:network_interfaces, field: :networkInterfaces)
   filter_table_config.add(:schedulings, field: :scheduling)
-  filter_table_config.add(:service_accounts, field: :service_accounts)
+  filter_table_config.add(:service_accounts, field: :serviceAccounts)
   filter_table_config.add(:statuses, field: :status)
-  filter_table_config.add(:status_messages, field: :status_message)
+  filter_table_config.add(:status_messages, field: :statusMessage)
   filter_table_config.add(:tags, field: :tags)
   filter_table_config.add(:zones, field: :zone)
 
@@ -68,7 +68,7 @@ class Instances < Inspec.resource(1)
   end
 
   def fetch_resource(params)
-    get_request = inspec.backend.fetch(base, url, params)
+    inspec.backend.fetch_all(base, url, params)
   end
 
   def fetch_data
@@ -76,15 +76,19 @@ class Instances < Inspec.resource(1)
   end
 
   def fetch_wrapped_resource(wrap_kind, wrap_path)
+    # fetch_resource returns an array of responses (to handle pagination)
     result = fetch_resource(@params)
-    return if result.nil? || !result.key?(wrap_path)
+    return if result.nil?
 
     # Conversion of string -> object hash to symbol -> object hash that InSpec needs
     converted = []
-    result[wrap_path].each do |hash|
-      hash_with_symbols = {}
-      hash.each_pair { |k, v| hash_with_symbols[k.to_sym] = v }
-      converted.push(hash_with_symbols)
+    result.each do |response|
+      return if response.nil? || !response.key?(wrap_path)
+      response[wrap_path].each do |hash|
+        hash_with_symbols = {}
+        hash.each_pair { |k, v| hash_with_symbols[k.to_sym] = v }
+        converted.push(hash_with_symbols)
+      end
     end
 
     converted
