@@ -100,4 +100,8 @@ class Firewall < Inspec.resource(1)
   def exists?
     !@fetched.nil?
   end
+
+  def custom
+    # TODO: actually add code here
+  end
 end
