@@ -1,4 +1,3 @@
-# The license inside this block applies to this file.
 # Copyright 2017 Google Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +11,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-source 'https://rubygems.org'
-gem 'bundle'
-gem 'inspec', '>= 3.0.0'
-gem 'rubocop'
+title 'Test plural GCP compute subnetwork'
+
+control 'gcp-compute-subnetworks-1.0' do
+
+  impact 1.0
+  title 'Plural GCP subnetwork resource test'
+  describe google_compute_subnetworks(project: attribute('project_name'), region: attribute('region')) do
+    it { should exist }
+    its('names') { should include 'gcp-inspec-subnetwork' }
+    its('ip_cidr_ranges') { should include "10.2.0.0/29" }
+  end
+end
