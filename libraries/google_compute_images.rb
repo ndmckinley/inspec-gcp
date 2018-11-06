@@ -26,26 +26,30 @@
 # ----------------------------------------------------------------------------
 
 require 'inspec/resource'
-class Subnetworks < Inspec.resource(1)
+class Images < Inspec.resource(1)
 
-  name 'google_compute_subnetworks'
-  desc 'Subnetwork plural resource'
+  name 'google_compute_images'
+  desc 'Image plural resource'
   supports platform: 'gcp2'
 
   filter_table_config = FilterTable.create
 
+  filter_table_config.add(:archive_size_bytes, field: :archive_size_bytes)
   filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
+  filter_table_config.add(:deprecateds, field: :deprecated)
   filter_table_config.add(:descriptions, field: :description)
-  filter_table_config.add(:gateway_addresses, field: :gateway_address)
+  filter_table_config.add(:disk_size_gbs, field: :disk_size_gb)
+  filter_table_config.add(:families, field: :family)
+  filter_table_config.add(:guest_os_features, field: :guest_os_features)
   filter_table_config.add(:ids, field: :id)
-  filter_table_config.add(:ip_cidr_ranges, field: :ip_cidr_range)
+  filter_table_config.add(:image_encryption_keys, field: :image_encryption_key)
+  filter_table_config.add(:licenses, field: :licenses)
   filter_table_config.add(:names, field: :name)
-  filter_table_config.add(:networks, field: :network)
-  filter_table_config.add(:enable_flow_logs, field: :enable_flow_logs)
-  filter_table_config.add(:fingerprints, field: :fingerprint)
-  filter_table_config.add(:secondary_ip_ranges, field: :secondary_ip_ranges)
-  filter_table_config.add(:private_ip_google_accesses, field: :private_ip_google_access)
-  filter_table_config.add(:regions, field: :region)
+  filter_table_config.add(:raw_disks, field: :raw_disk)
+  filter_table_config.add(:source_disks, field: :source_disk)
+  filter_table_config.add(:source_disk_encryption_keys, field: :source_disk_encryption_key)
+  filter_table_config.add(:source_disk_ids, field: :source_disk_id)
+  filter_table_config.add(:source_types, field: :source_type)
 
   filter_table_config.connect(self, :fetch_data)
 
@@ -54,7 +58,7 @@ class Subnetworks < Inspec.resource(1)
   end
 
   def url
-    'projects/{{project}}/regions/{{region}}/subnetworks'
+    'projects/{{project}}/global/images'
   end
 
   def initialize(params = {}) 
@@ -66,7 +70,7 @@ class Subnetworks < Inspec.resource(1)
   end
 
   def fetch_data
-  	@data = fetch_wrapped_resource('compute#subnetworkList', 'items')
+  	@data = fetch_wrapped_resource('compute#imageList', 'items')
   end
 
   def fetch_wrapped_resource(wrap_kind, wrap_path)
