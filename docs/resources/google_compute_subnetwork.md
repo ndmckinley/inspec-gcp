@@ -1,81 +1,42 @@
+
+
 ---
-title: About the google_compute_subnetwork Resource
-platform: gcp
+title: About the Subnetwork resource
+platform: gcp2
 ---
-
-# google\_compute\_subnetwork
-
-Use the `google_compute_subnetwork` InSpec audit resource to test properties of a single GCP compute subnetwork.
-
-<br>
 
 ## Syntax
+A `google_compute_subnetwork` is used to test a Google Subnetwork resource
 
-A `google_compute_subnetwork` resource block declares the tests for a single GCP subnetwork by project, region and name.
-
-    describe google_compute_subnetwork(project: 'chef-inspec-gcp', region: 'europe-west2', name: 'gcp-inspec-subnetwork') do
-      it { should exist }
-      its('name') { should eq 'gcp-inspec-subnetwork' }
-      its('region') { should match 'europe-west2' }
-    end
-
-<br>
-
-## Examples
-
-The following examples show how to use this InSpec audit resource.
-
-### Test that a GCP compute subnetwork exists
-
-    describe google_compute_subnetwork(project: 'chef-inspec-gcp', region: 'europe-west2', name: 'gcp-inspec-subnetwork') do
-      it { should exist }
-    end
-
-### Test when a GCP compute subnetwork was created
-
-    describe google_compute_subnetwork(project: 'chef-inspec-gcp', region: 'europe-west2', name: 'gcp-inspec-subnetwork') do
-      its('creation_timestamp_date') { should be > Time.now - 365*60*60*24*10 }
-    end
-
-### Test for an expected subnetwork identifier 
-
-    describe google_compute_subnetwork(project: 'chef-inspec-gcp', region: 'europe-west2', name: 'gcp-inspec-subnetwork') do
-      its('id') { should eq 12345567789 }
-    end    
-
-### Test that a subnetwork gateway address is as expected
-
-    describe google_compute_subnetwork(project: 'chef-inspec-gcp', region: 'europe-west2', name: 'gcp-inspec-subnetwork') do
-      its('gateway_address') { should eq "10.2.0.1" }
-    end  
-
-### Test that a subnetwork IP CIDR range is as expected
-
-    describe google_compute_subnetwork(project: 'chef-inspec-gcp', region: 'europe-west2', name: 'gcp-inspec-subnetwork') do
-      its('ip_cidr_range') { should eq "10.2.0.0/29" }
-    end  
-
-### Test that a subnetwork is associated with the expected network
-
-    describe google_compute_subnetwork(project: 'chef-inspec-gcp', region: 'europe-west2', name: 'gcp-inspec-subnetwork') do
-      its('network') { should match "gcp_network_name" }
-    end  
-
-### Test whether VMs in this subnet can access Google services without assigning external IP addresses through Private Google Access
-
-    describe google_compute_subnetwork(project: 'chef-inspec-gcp', region: 'europe-west2', name: 'gcp-inspec-subnetwork') do
-      its('private_ip_google_access') { should be false }
-    end
-
-<br>
+TODO: Examples
 
 ## Properties
+Properties that can be accessed from the `google_compute_subnetwork` resource:
 
-*  `creation_timestamp`, `creation_timestamp_date`, `gateway_address`, `id`, `ip_cidr_range`, `kind`, `name`, `network`, `private_ip_google_access`, `region`
+  * `creation_timestamp`: Creation timestamp in RFC3339 text format.
 
-<br>
+  * `description`: An optional description of this resource. Provide this property when you create the resource. This field can be set only at resource creation time.
 
+  * `gateway_address`: The gateway address for default routes to reach destination addresses outside this subnetwork.
 
-## GCP Permissions
+  * `id`: The unique identifier for the resource.
 
-Ensure the [Compute Engine API](https://console.cloud.google.com/apis/library/compute.googleapis.com/) is enabled for the project where the resource is located.
+  * `ip_cidr_range`: The range of internal addresses that are owned by this subnetwork. Provide this property when you create the subnetwork. For example, 10.0.0.0/8 or 192.168.0.0/16. Ranges must be unique and non-overlapping within a network. Only IPv4 is supported.
+
+  * `name`: The name of the resource, provided by the client when initially creating the resource. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
+
+  * `network`: The network this subnet belongs to. Only networks that are in the distributed mode can have subnetworks.
+
+  * `enable_flow_logs`: Whether to enable flow logging for this subnetwork.
+
+  * `fingerprint`: Fingerprint of this resource. This field is used internally during updates of this resource.
+
+  * `secondary_ip_ranges`: An array of configurations for secondary IP ranges for VM instances contained in this subnetwork. The primary IP of such VM must belong to the primary ipCidrRange of the subnetwork. The alias IPs may belong to either primary or secondary ranges.
+
+    * `rangeName`: The name associated with this subnetwork secondary range, used when adding an alias IP range to a VM instance. The name must be 1-63 characters long, and comply with RFC1035. The name must be unique within the subnetwork.
+
+    * `ipCidrRange`: The range of IP addresses belonging to this subnetwork secondary range. Provide this property when you create the subnetwork. Ranges must be unique and non-overlapping with all primary and secondary IP ranges within a network. Only IPv4 is supported.
+
+  * `private_ip_google_access`: Whether the VMs in this subnet can access Google services without assigned external IP addresses.
+
+  * `region`: URL of the GCP region for this subnetwork.
