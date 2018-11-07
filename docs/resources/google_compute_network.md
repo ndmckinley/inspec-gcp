@@ -1,77 +1,34 @@
+
+
 ---
-title: About the google_compute_network Resource
-platform: gcp
+title: About the Network resource
+platform: gcp2
 ---
-
-# google\_compute\_network
-
-Use the `google_compute_network` InSpec audit resource to test properties of a single GCP compute network.
-
-<br>
 
 ## Syntax
+A `google_compute_network` is used to test a Google Network resource
 
-A `google_compute_network` resource block declares the tests for a single GCP zone by project and name.
-
-    describe google_compute_network(project: 'chef-inspec-gcp',  name: 'gcp-inspec-network') do
-      it { should exist }
-      its('name') { should eq 'gcp-inspec-network' }
-    end
-
-<br>
-
-## Examples
-
-The following examples show how to use this InSpec audit resource.
-
-### Test that a GCP compute network exists
-
-    describe google_compute_network(project: 'chef-inspec-gcp',  name: 'gcp-inspec-network') do
-      it { should exist }
-    end
-
-### Test when a GCP compute network was created
-
-    describe google_compute_network(project: 'chef-inspec-gcp',  name: 'gcp-inspec-network') do
-      its('creation_timestamp_date') { should be > Time.now - 365*60*60*24*10 }
-    end    
-    
-### Test for an expected network identifier 
-
-    describe google_compute_network(project: 'chef-inspec-gcp',  name: 'gcp-inspec-network') do
-      its('id') { should eq 12345567789 }
-    end    
-
-
-### Test whether a single attached subnetwork name is correct 
-
-    describe google_compute_network(project: 'chef-inspec-gcp',  name: 'gcp-inspec-network') do
-      its ('subnetworks.count') { should eq 1 }
-      its ('subnetworks.first') { should match "subnetwork-name"}
-    end    
-    
-### Test whether the network is configured to automatically create subnetworks or not
-
-    describe google_compute_network(project: 'chef-inspec-gcp',  name: 'gcp-inspec-network') do
-      its ('auto_create_subnetworks'){ should be false }
-    end    
-
-
-### Check the network routing configuration routing mode 
-
-    describe google_compute_network(project: 'chef-inspec-gcp',  name: 'gcp-inspec-network') do
-      its ('routing_config.routing_mode') { should eq "REGIONAL" }
-    end
-
-<br>
+TODO: Examples
 
 ## Properties
+Properties that can be accessed from the `google_compute_network` resource:
 
-*  `auto_create_subnetworks`, `creation_timestamp`, `creation_timestamp_date`, `id`, `kind`, `name`, `routing_config`, `subnetworks`
+  * `description`: An optional description of this resource. Provide this property when you create the resource.
 
-<br>
+  * `gateway_ipv4`: A gateway address for default routing to other networks. This value is read only and is selected by the Google Compute Engine, typically as the first usable address in the IPv4Range.
 
+  * `id`: The unique identifier for the resource.
 
-## GCP Permissions
+  * `ipv4_range`: The range of internal addresses that are legal on this network. This range is a CIDR specification, for example: 192.168.0.0/16. Provided by the client when the network is created.
 
-Ensure the [Compute Engine API](https://console.cloud.google.com/apis/library/compute.googleapis.com/) is enabled for the project where the resource is located.
+  * `name`: Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
+
+  * `subnetworks`: Server-defined fully-qualified URLs for all subnetworks in this network.
+
+  * `auto_create_subnetworks`: When set to true, the network is created in "auto subnet mode". When set to false, the network is in "custom subnet mode".  In "auto subnet mode", a newly created network is assigned the default CIDR of 10.128.0.0/9 and it automatically creates one subnetwork per region.
+
+  * `creation_timestamp`: Creation timestamp in RFC3339 text format.
+
+  * `routing_config`: The network-level routing configuration for this network. Used by Cloud Router to determine what type of network-wide routing behavior to enforce.
+
+    * `routingMode`: The network-wide routing mode to use. If set to REGIONAL, this network's cloud routers will only advertise routes with subnetworks of this network in the same region as the router. If set to GLOBAL, this network's cloud routers will advertise routes with all subnetworks of this network, across regions.
