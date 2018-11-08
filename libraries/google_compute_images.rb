@@ -26,23 +26,30 @@
 # ----------------------------------------------------------------------------
 
 require 'inspec/resource'
-class Networks < Inspec.resource(1)
+class Images < Inspec.resource(1)
 
-  name 'google_compute_networks'
-  desc 'Network plural resource'
+  name 'google_compute_images'
+  desc 'Image plural resource'
   supports platform: 'gcp2'
 
   filter_table_config = FilterTable.create
 
-  filter_table_config.add(:descriptions, field: :description)
-  filter_table_config.add(:gateway_ipv4s, field: :gateway_ipv4)
-  filter_table_config.add(:ids, field: :id)
-  filter_table_config.add(:ipv4_ranges, field: :ipv4_range)
-  filter_table_config.add(:names, field: :name)
-  filter_table_config.add(:subnetworks, field: :subnetworks)
-  filter_table_config.add(:auto_create_subnetworks, field: :autoCreateSubnetworks)
+  filter_table_config.add(:archive_size_bytes, field: :archiveSizeBytes)
   filter_table_config.add(:creation_timestamps, field: :creationTimestamp)
-  filter_table_config.add(:routing_configs, field: :routingConfig)
+  filter_table_config.add(:deprecateds, field: :deprecated)
+  filter_table_config.add(:descriptions, field: :description)
+  filter_table_config.add(:disk_size_gbs, field: :diskSizeGb)
+  filter_table_config.add(:families, field: :family)
+  filter_table_config.add(:guest_os_features, field: :guestOsFeatures)
+  filter_table_config.add(:ids, field: :id)
+  filter_table_config.add(:image_encryption_keys, field: :imageEncryptionKey)
+  filter_table_config.add(:licenses, field: :licenses)
+  filter_table_config.add(:names, field: :name)
+  filter_table_config.add(:raw_disks, field: :rawDisk)
+  filter_table_config.add(:source_disks, field: :sourceDisk)
+  filter_table_config.add(:source_disk_encryption_keys, field: :sourceDiskEncryptionKey)
+  filter_table_config.add(:source_disk_ids, field: :sourceDiskId)
+  filter_table_config.add(:source_types, field: :sourceType)
 
   filter_table_config.connect(self, :fetch_data)
 
@@ -51,7 +58,7 @@ class Networks < Inspec.resource(1)
   end
 
   def url
-    'projects/{{project}}/global/networks'
+    'projects/{{project}}/global/images'
   end
 
   def initialize(params = {}) 
@@ -63,7 +70,7 @@ class Networks < Inspec.resource(1)
   end
 
   def fetch_data
-  	@data = fetch_wrapped_resource('compute#networkList', 'items')
+  	@data = fetch_wrapped_resource('compute#imageList', 'items')
   end
 
   def fetch_wrapped_resource(wrap_kind, wrap_path)
