@@ -47,7 +47,7 @@ class Subnetworks < Inspec.resource(1)
   filter_table_config.add(:private_ip_google_accesses, field: :privateIpGoogleAccess)
   filter_table_config.add(:regions, field: :region)
 
-  filter_table_config.connect(self, :fetch_data)
+  filter_table_config.connect(self, :table)
 
   def base
     'https://www.googleapis.com/compute/v1/'
@@ -59,19 +59,16 @@ class Subnetworks < Inspec.resource(1)
 
   def initialize(params = {}) 
     @params = params
+    @table = fetch_wrapped_resource('compute#subnetworkList', 'items')
   end
 
-  def fetch_resource(params)
-    inspec.backend.fetch_all(base, url, params)
-  end
-
-  def fetch_data
-  	@data = fetch_wrapped_resource('compute#subnetworkList', 'items')
+  def table
+    @table
   end
 
   def fetch_wrapped_resource(wrap_kind, wrap_path)
     # fetch_resource returns an array of responses (to handle pagination)
-    result = fetch_resource(@params)
+    result = inspec.backend.fetch_all(base, url, @params)
     return if result.nil?
 
     # Conversion of string -> object hash to symbol -> object hash that InSpec needs
