@@ -26,29 +26,32 @@
 # ----------------------------------------------------------------------------
 
 require 'gcp_backend'
-require 'google/compute/property/zone_deprecated'
+require 'google/compute/property/sslpolicy_warnings'
 
 
 # A provider to manage Google Compute Engine resources.
-class Zone < GcpResourceBase
+class SslPolicy < GcpResourceBase
 
-  name 'google_compute_zone'
-  desc 'Zone'
+  name 'google_compute_ssl_policy'
+  desc 'SslPolicy'
   supports platform: 'gcp'
 
   attr_reader :creation_timestamp
-  attr_reader :deprecated
   attr_reader :description
   attr_reader :id
   attr_reader :name
-  attr_reader :region
-  attr_reader :status
+  attr_reader :profile
+  attr_reader :min_tls_version
+  attr_reader :enabled_features
+  attr_reader :custom_features
+  attr_reader :fingerprint
+  attr_reader :warnings
   def base
     'https://www.googleapis.com/compute/v1/'
   end
 
   def url
-    'projects/{{project}}/zones/{{name}}'
+    'projects/{{project}}/global/sslPolicies/{{name}}'
   end
 
   def initialize(params)
@@ -59,12 +62,15 @@ class Zone < GcpResourceBase
 
   def parse
     @creation_timestamp = DateTime.parse(@fetched['creationTimestamp'])
-    @deprecated = Google::Compute::Property::ZoneDeprecated.new(@fetched['deprecated'])
     @description = @fetched['description']
     @id = @fetched['id']
     @name = @fetched['name']
-    @region = @fetched['region']
-    @status = @fetched['status']
+    @profile = @fetched['profile']
+    @min_tls_version = @fetched['minTlsVersion']
+    @enabled_features = @fetched['enabledFeatures']
+    @custom_features = @fetched['customFeatures']
+    @fingerprint = @fetched['fingerprint']
+    @warnings = Google::Compute::Property::SslPolicyWarningsArray.parse(@fetched['warnings'])
   end
 
   def exists?

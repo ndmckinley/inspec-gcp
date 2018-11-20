@@ -26,21 +26,24 @@
 # ----------------------------------------------------------------------------
 
 require 'gcp_backend'
-class Zones < GcpResourceBase
+class SslPolicys < GcpResourceBase
 
-  name 'google_compute_zones'
-  desc 'Zone plural resource'
+  name 'google_compute_ssl_policies'
+  desc 'SslPolicy plural resource'
   supports platform: 'gcp'
 
   filter_table_config = FilterTable.create
 
   filter_table_config.add(:creation_timestamps, field: :creationTimestamp)
-  filter_table_config.add(:deprecateds, field: :deprecated)
   filter_table_config.add(:descriptions, field: :description)
   filter_table_config.add(:ids, field: :id)
   filter_table_config.add(:names, field: :name)
-  filter_table_config.add(:regions, field: :region)
-  filter_table_config.add(:statuses, field: :status)
+  filter_table_config.add(:profiles, field: :profile)
+  filter_table_config.add(:min_tls_versions, field: :minTlsVersion)
+  filter_table_config.add(:enabled_features, field: :enabledFeatures)
+  filter_table_config.add(:custom_features, field: :customFeatures)
+  filter_table_config.add(:fingerprints, field: :fingerprint)
+  filter_table_config.add(:warnings, field: :warnings)
 
   filter_table_config.connect(self, :table)
 
@@ -49,13 +52,13 @@ class Zones < GcpResourceBase
   end
 
   def url
-    'projects/{{project}}/zones'
+    'projects/{{project}}/global/sslPolicies'
   end
 
   def initialize(params = {})
     super(params.merge({:use_http_transport => true}))
     @params = params
-    @table = fetch_wrapped_resource('compute#zoneList', 'items')
+    @table = fetch_wrapped_resource('compute#sslPoliciesList', 'items')
   end
 
   def table

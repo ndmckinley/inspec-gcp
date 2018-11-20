@@ -25,49 +25,21 @@
 #
 # ----------------------------------------------------------------------------
 
-require 'gcp_backend'
-require 'google/compute/property/zone_deprecated'
+module Google
+  module Compute
+    module Property
+      class InstanceTags
+        attr_reader :fingerprint
+        attr_reader :items
 
 
-# A provider to manage Google Compute Engine resources.
-class Zone < GcpResourceBase
+        def initialize(args = nil)
+          return nil if args.nil?
+          @fingerprint = args['fingerprint']
+          @items = args['items']
+        end
+      end
 
-  name 'google_compute_zone'
-  desc 'Zone'
-  supports platform: 'gcp'
-
-  attr_reader :creation_timestamp
-  attr_reader :deprecated
-  attr_reader :description
-  attr_reader :id
-  attr_reader :name
-  attr_reader :region
-  attr_reader :status
-  def base
-    'https://www.googleapis.com/compute/v1/'
-  end
-
-  def url
-    'projects/{{project}}/zones/{{name}}'
-  end
-
-  def initialize(params)
-    super(params.merge({:use_http_transport => true}))
-    @fetched = @connection.fetch(base, url, params)
-    parse unless @fetched.nil?
-  end
-
-  def parse
-    @creation_timestamp = DateTime.parse(@fetched['creationTimestamp'])
-    @deprecated = Google::Compute::Property::ZoneDeprecated.new(@fetched['deprecated'])
-    @description = @fetched['description']
-    @id = @fetched['id']
-    @name = @fetched['name']
-    @region = @fetched['region']
-    @status = @fetched['status']
-  end
-
-  def exists?
-    !@fetched.nil?
+    end
   end
 end
