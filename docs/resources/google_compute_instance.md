@@ -1,110 +1,98 @@
+
+
 ---
-title: About the google_compute_instance Resource
-platform: gcp
+title: About the Instance resource
+platform: gcp2
 ---
-
-# google\_compute\_instance
-
-Use the `google_compute_instance` InSpec audit resource to test properties of a single GCP compute instance.
-
-<br>
 
 ## Syntax
+A `google_compute_instance` is used to test a Google Instance resource
 
-A `google_compute_instance` resource block declares the tests for a single GCP instance by project, zone and name.
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      it { should exist }
-      its('name') { should eq 'inspec-test-vm' }
-      its('zone') { should match 'us-east1-b' }
-    end
-
-<br>
-
-## Examples
-
-The following examples show how to use this InSpec audit resource.
-
-### Test that a GCP compute instance does not exist
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm-not-there') do
-      it { should_not exist }
-    end
-
-### Test that a GCP compute instance is in the expected state ([explore possible states here](https://cloud.google.com/compute/docs/instances/checking-instance-status))
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      its('status') { should eq 'RUNNING' }
-    end
-
-### Test that a GCP compute instance is the expected size
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      its('machine_type') { should match "f1-micro" }
-    end
-
-### Test that a GCP compute instance has the expected CPU platform
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      its('cpu_platform') { should match "Intel" }
-    end
-
-### Test that a GCP compute instance has the expected number of attached disks
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      its('disk_count'){should eq 2}
-    end
-
-### Test that a GCP compute instance has the expected number of attached network interfaces
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      its('network_interfaces_count'){should eq 1}
-    end
-
-### Test that a GCP compute instance has the expected number of tags
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      its('tag_count'){should eq 1}
-    end
-
-### Test that a GCP compute instance has a single public IP address
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      its('first_network_interface_nat_ip_exists'){ should be true }
-      its('first_network_interface_name'){ should eq "external-nat" }
-      its('first_network_interface_type'){ should eq "one_to_one_nat" }
-    end
-
-### Test that a particular compute instance label key is present
-
-    describe google_compute_instance(project: 'chef-inspec-gcp',  zone: 'us-east1-b', name: 'inspec-test-vm') do
-      its('labels_keys') { should include 'my_favourite_label' }
-    end
-
-### Test that a particular compute instance label value is matching regexp 
-    describe google_compute_instance(project: 'chef-inspec-gcp', zone:'us-east1-b', name:'inspec-test-vm').label_value_by_key('business-area') do
-      it { should match '^(marketing|research)$' }
-    end
-
-### Test that a particular compute instance metadata key is present 
-    describe google_compute_instance(project: 'chef-inspec-gcp', zone:'us-east1-b', name:'inspec-test-vm') do
-      its('metadata_keys') { should include 'patching-type' }
-    end
-
-### Test that a particular compute instance metadata value is matching regexp 
-    describe google_compute_instance(project: 'chef-inspec-gcp', zone:'us-east1-b', name:'inspec-test-vm').metadata_value_by_key('patching-window') do
-      it { should match '^\d{1}-\d{2}$' }
-    end
-
-<br>
+TODO: Examples
 
 ## Properties
+Properties that can be accessed from the `google_compute_instance` resource:
 
-*  `cpu_platform`, `creation_timestamp`, `deletion_protection`, `disks`, `id`, `kind`, `label_fingerprint`, `machine_type`, `metadata`, `name`, `network_interfaces`, `scheduling`, `start_restricted`, `status`, `tags`, `zone`, `labels_keys`, `labels_values`, `label_value_by_key`, `metadata_keys`, `metadata_values`, `metadata_value_by_key` 
+  * `can_ip_forward`: Allows this instance to send and receive packets with non-matching destination or source IPs. This is required if you plan to use this instance to forward routes.
 
-<br>
+  * `cpu_platform`: The CPU platform used by this instance.
 
+  * `creation_timestamp`: Creation timestamp in RFC3339 text format.
 
-## GCP Permissions
+  * `disks`: An array of disks that are associated with the instances that are created from this template.
 
-Ensure the [Compute Engine API](https://console.cloud.google.com/apis/library/compute.googleapis.com/) is enabled for the project where the resource is located.
+    * `autoDelete`: Specifies whether the disk will be auto-deleted when the instance is deleted (but not when the disk is detached from the instance).  Tip: Disks should be set to autoDelete=true so that leftover disks are not left behind on machine deletion.
+
+    * `boot`: Indicates that this is a boot disk. The virtual machine will use the first partition of the disk for its root filesystem.
+
+    * `deviceName`: Specifies a unique device name of your choice that is reflected into the /dev/disk/by-id/google-* tree of a Linux operating system running within the instance. This name can be used to reference the device for mounting, resizing, and so on, from within the instance.
+
+    * `diskEncryptionKey`: Encrypts or decrypts a disk using a customer-supplied encryption key.
+
+    * `index`: Assigns a zero-based index to this disk, where 0 is reserved for the boot disk. For example, if you have many disks attached to an instance, each disk would have a unique index number. If not specified, the server will choose an appropriate value.
+
+    * `initializeParams`: Specifies the parameters for a new disk that will be created alongside the new instance. Use initialization parameters to create boot disks or local SSDs attached to the new instance.
+
+    * `interface`: Specifies the disk interface to use for attaching this disk, which is either SCSI or NVME. The default is SCSI. Persistent disks must always use SCSI and the request will fail if you attempt to attach a persistent disk in any other format than SCSI.
+
+    * `mode`: The mode in which to attach this disk, either READ_WRITE or READ_ONLY. If not specified, the default is to attach the disk in READ_WRITE mode.
+
+    * `source`: Reference to a gcompute_disk resource. When creating a new instance, one of initializeParams.sourceImage or disks.source is required.  If desired, you can also attach existing non-root persistent disks using this property. This field is only applicable for persistent disks.
+
+    * `type`: Specifies the type of the disk, either SCRATCH or PERSISTENT. If not specified, the default is PERSISTENT.
+
+  * `guest_accelerators`: List of the type and count of accelerator cards attached to the instance
+
+    * `acceleratorCount`: The number of the guest accelerator cards exposed to this instance.
+
+    * `acceleratorType`: Full or partial URL of the accelerator type resource to expose to this instance.
+
+  * `id`: The unique identifier for the resource. This identifier is defined by the server.
+
+  * `label_fingerprint`: A fingerprint for this request, which is essentially a hash of the metadata's contents and used for optimistic locking. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update metadata. You must always provide an up-to-date fingerprint hash in order to update or change metadata.
+
+  * `metadata`: The metadata key/value pairs to assign to instances that are created from this template. These pairs can consist of custom metadata or predefined keys.
+
+  * `machine_type`: A reference to a machine type which defines VM kind.
+
+  * `min_cpu_platform`: Specifies a minimum CPU platform for the VM instance. Applicable values are the friendly names of CPU platforms
+
+  * `name`: The name of the resource, provided by the client when initially creating the resource. The resource name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
+
+  * `network_interfaces`: An array of configurations for this interface. This specifies how this interface is configured to interact with other network services, such as connecting to the internet. Only one network interface is supported per instance.
+
+    * `accessConfigs`: An array of configurations for this interface. Currently, only one access config, ONE_TO_ONE_NAT, is supported. If there are no accessConfigs specified, then this instance will have no external internet access.
+
+    * `aliasIpRanges`: An array of alias IP ranges for this network interface. Can only be specified for network interfaces on subnet-mode networks.
+
+    * `name`: The name of the network interface, generated by the server. For network devices, these are eth0, eth1, etc
+
+    * `network`: Specifies the title of an existing gcompute_network.  When creating an instance, if neither the network nor the subnetwork is specified, the default network global/networks/default is used; if the network is not specified but the subnetwork is specified, the network is inferred.
+
+    * `networkIP`: An IPv4 internal network address to assign to the instance for this network interface. If not specified by the user, an unused internal IP is assigned by the system.
+
+    * `subnetwork`: Reference to a gcompute_subnetwork resource. If the network resource is in legacy mode, do not provide this property.  If the network is in auto subnet mode, providing the subnetwork is optional. If the network is in custom subnet mode, then this field should be specified.
+
+  * `scheduling`: Sets the scheduling options for this instance.
+
+    * `automaticRestart`: Specifies whether the instance should be automatically restarted if it is terminated by Compute Engine (not terminated by a user). You can only set the automatic restart option for standard instances. Preemptible instances cannot be automatically restarted.
+
+    * `onHostMaintenance`: Defines the maintenance behavior for this instance. For standard instances, the default behavior is MIGRATE. For preemptible instances, the default and only possible behavior is TERMINATE. For more information, see Setting Instance Scheduling Options.
+
+    * `preemptible`: Defines whether the instance is preemptible. This can only be set during instance creation, it cannot be set or changed after the instance has been created.
+
+  * `service_accounts`: A list of service accounts, with their specified scopes, authorized for this instance. Only one service account per VM instance is supported.
+
+    * `email`: Email address of the service account.
+
+    * `scopes`: The list of scopes to be made available for this service account.
+
+  * `status`: The status of the instance. One of the following values: PROVISIONING, STAGING, RUNNING, STOPPING, SUSPENDING, SUSPENDED, and TERMINATED.
+
+  * `status_message`: An optional, human-readable explanation of the status.
+
+  * `tags`: A list of tags to apply to this instance. Tags are used to identify valid sources or targets for network firewalls and are specified by the client during instance creation. The tags can be later modified by the setTags method. Each tag within the list must comply with RFC1035.
+
+    * `fingerprint`: Specifies a fingerprint for this request, which is essentially a hash of the metadata's contents and used for optimistic locking. The fingerprint is initially generated by Compute Engine and changes after every request to modify or update metadata. You must always provide an up-to-date fingerprint hash in order to update or change metadata.
+
+    * `items`: An array of tags. Each tag must be 1-63 characters long, and comply with RFC1035.

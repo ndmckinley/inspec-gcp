@@ -25,49 +25,38 @@
 #
 # ----------------------------------------------------------------------------
 
-require 'gcp_backend'
-require 'google/compute/property/zone_deprecated'
+require 'google/compute/property/instance_access_configs'
+require 'google/compute/property/instance_alias_ip_ranges'
+module Google
+  module Compute
+    module Property
+      class InstanceNetworkinterfaces
+        attr_reader :access_configs
+        attr_reader :alias_ip_ranges
+        attr_reader :name
+        attr_reader :network
+        attr_reader :network_ip
+        attr_reader :subnetwork
 
 
-# A provider to manage Google Compute Engine resources.
-class Zone < GcpResourceBase
+        def initialize(args = nil)
+          return nil if args.nil?
+          @access_configs = Google::Compute::Property::InstanceAccessconfigsArray.parse(args['accessConfigs'])
+          @alias_ip_ranges = Google::Compute::Property::InstanceAliasiprangesArray.parse(args['aliasIpRanges'])
+          @name = args['name']
+          @network = args['network']
+          @network_ip = args['networkIP']
+          @subnetwork = args['subnetwork']
+        end
+      end
 
-  name 'google_compute_zone'
-  desc 'Zone'
-  supports platform: 'gcp'
-
-  attr_reader :creation_timestamp
-  attr_reader :deprecated
-  attr_reader :description
-  attr_reader :id
-  attr_reader :name
-  attr_reader :region
-  attr_reader :status
-  def base
-    'https://www.googleapis.com/compute/v1/'
-  end
-
-  def url
-    'projects/{{project}}/zones/{{name}}'
-  end
-
-  def initialize(params)
-    super(params.merge({:use_http_transport => true}))
-    @fetched = @connection.fetch(base, url, params)
-    parse unless @fetched.nil?
-  end
-
-  def parse
-    @creation_timestamp = DateTime.parse(@fetched['creationTimestamp'])
-    @deprecated = Google::Compute::Property::ZoneDeprecated.new(@fetched['deprecated'])
-    @description = @fetched['description']
-    @id = @fetched['id']
-    @name = @fetched['name']
-    @region = @fetched['region']
-    @status = @fetched['status']
-  end
-
-  def exists?
-    !@fetched.nil?
+      class InstanceNetworkinterfacesArray
+        def self.parse(value)
+          return if value.nil?
+          return InstanceNetworkinterfaces.new(value) unless value.is_a?(::Array)
+          value.map { |v| InstanceNetworkinterfaces.new(v) }
+        end
+      end
+    end
   end
 end
