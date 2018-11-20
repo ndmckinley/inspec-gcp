@@ -1,4 +1,3 @@
-# The license inside this block applies to this file.
 # Copyright 2017 Google Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,21 +11,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-source 'https://rubygems.org'
+require 'vcr_config'
 
-gem 'bundle'
-gem 'google-api-client'
-gem 'google-cloud'
-gem 'googleauth'
-gem 'inifile'
-gem 'inspec', '~> 3.0', '>= 3.0.25'
-gem 'rubocop'
+title 'Test GCP SSL policies plural resource.'
 
-group :development do
-  gem 'github_changelog_generator'
-  gem 'passgen'
-  gem 'pry-coolline'
-  gem 'rake'
-  gem 'vcr'
-  gem 'webmock'
+project_name = attribute('project_name', default: '')
+ssl_policy = attribute('ssl_policy', default: {})
+
+control 'gcp-ssl-policies-1.0' do
+  impact 1.0
+  title 'GCP SSL policies plural test'
+
+  VCR.use_cassette('gcp-ssl-policies') do
+    resource = google_compute_ssl_policies(project: project_name)
+
+    describe resource do
+      it { should exist }
+      its('names') { should include ssl_policy['name'] }
+      its('profiles') { should include ssl_policy['profile'] }
+    end
+  end
 end
