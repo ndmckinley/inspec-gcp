@@ -14,30 +14,32 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-require 'google/compute/property/sslpolicy_warnings'
 
 # A provider to manage Google Compute Engine resources.
-class SslPolicy < GcpResourceBase
-  name 'google_compute_ssl_policy'
-  desc 'SslPolicy'
+class Disk < GcpResourceBase
+  name 'google_compute_disk'
+  desc 'Disk'
   supports platform: 'gcp'
 
+  attr_reader :label_fingerprint
   attr_reader :creation_timestamp
   attr_reader :description
   attr_reader :id
+  attr_reader :last_attach_timestamp
+  attr_reader :last_detach_timestamp
+  attr_reader :labels
+  attr_reader :licenses
   attr_reader :name
-  attr_reader :profile
-  attr_reader :min_tls_version
-  attr_reader :enabled_features
-  attr_reader :custom_features
-  attr_reader :fingerprint
-  attr_reader :warnings
+  attr_reader :size_gb
+  attr_reader :users
+  attr_reader :type
+  attr_reader :source_image
   def base
     'https://www.googleapis.com/compute/v1/'
   end
 
   def url
-    'projects/{{project}}/global/sslPolicies/{{name}}'
+    'projects/{{project}}/zones/{{zone}}/disks/{{name}}'
   end
 
   def initialize(params)
@@ -47,16 +49,19 @@ class SslPolicy < GcpResourceBase
   end
 
   def parse
+    @label_fingerprint = @fetched['labelFingerprint']
     @creation_timestamp = @fetched['creationTimestamp'].nil? ? Time.parse(@fetched['creationTimestamp']) : nil
     @description = @fetched['description']
     @id = @fetched['id']
+    @last_attach_timestamp = @fetched['lastAttachTimestamp'].nil? ? Time.parse(@fetched['lastAttachTimestamp']) : nil
+    @last_detach_timestamp = @fetched['lastDetachTimestamp'].nil? ? Time.parse(@fetched['lastDetachTimestamp']) : nil
+    @labels = @fetched['labels']
+    @licenses = @fetched['licenses']
     @name = @fetched['name']
-    @profile = @fetched['profile']
-    @min_tls_version = @fetched['minTlsVersion']
-    @enabled_features = @fetched['enabledFeatures']
-    @custom_features = @fetched['customFeatures']
-    @fingerprint = @fetched['fingerprint']
-    @warnings = GoogleInSpec::Compute::Property::SslPolicyWarningsArray.parse(@fetched['warnings'])
+    @size_gb = @fetched['sizeGb']
+    @users = @fetched['users']
+    @type = @fetched['type']
+    @source_image = @fetched['sourceImage']
   end
 
   def exists?
