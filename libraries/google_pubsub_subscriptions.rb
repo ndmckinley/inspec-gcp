@@ -25,8 +25,8 @@ class Subscriptions < GcpResourceBase
 
   filter_table_config.add(:names, field: :name)
   filter_table_config.add(:topics, field: :topic)
-  filter_table_config.add(:push_configs, field: :pushConfig)
-  filter_table_config.add(:ack_deadline_seconds, field: :ackDeadlineSeconds)
+  filter_table_config.add(:push_configs, field: :push_config)
+  filter_table_config.add(:ack_deadline_seconds, field: :ack_deadline_seconds)
 
   filter_table_config.connect(self, :table)
 
@@ -55,12 +55,35 @@ class Subscriptions < GcpResourceBase
       next if response.nil? || !response.key?(wrap_path)
       response[wrap_path].each do |hash|
         hash_with_symbols = {}
-        hash.each_pair { |k, v| hash_with_symbols[k.to_sym] = v }
+        hash.each_key do |key|
+          name, value = transform(key, hash)
+          hash_with_symbols[name] = value
+        end
         hash_with_symbols[:name] = name_from_self_link(hash_with_symbols[:name])
         converted.push(hash_with_symbols)
       end
     end
 
     converted
+  end
+
+  def transform(key, value)
+    return transformers[key].call(value) if transformers.key?(key)
+
+    [key.to_sym, value]
+  end
+
+  def transformers
+    {
+      'name' => ->(obj) { return :name, name_from_self_link(obj['name']) },
+      'topic' => ->(obj) { return :topic, obj['topic'] },
+      'pushConfig' => ->(obj) { return :push_config, GoogleInSpec::Pubsub::Property::SubscriptionPushconfig.new(obj['pushConfig']) },
+      'ackDeadlineSeconds' => ->(obj) { return :ack_deadline_seconds, obj['ackDeadlineSeconds'] },
+    }
+  end
+
+  # Handles parsing RFC3339 time string
+  def parse_time_string(time_string)
+    time_string ? Time.parse(time_string) : nil
   end
 end
