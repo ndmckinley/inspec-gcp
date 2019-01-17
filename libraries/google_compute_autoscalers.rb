@@ -14,27 +14,21 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class InstanceGroupManagers < GcpResourceBase
-  name 'google_compute_instance_group_managers'
-  desc 'InstanceGroupManager plural resource'
+class Autoscalers < GcpResourceBase
+  name 'google_compute_autoscalers'
+  desc 'Autoscaler plural resource'
   supports platform: 'gcp'
 
   attr_reader :table
 
   filter_table_config = FilterTable.create
 
-  filter_table_config.add(:base_instance_names, field: :base_instance_name)
-  filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
-  filter_table_config.add(:current_actions, field: :current_actions)
-  filter_table_config.add(:descriptions, field: :description)
   filter_table_config.add(:ids, field: :id)
-  filter_table_config.add(:instance_groups, field: :instance_group)
-  filter_table_config.add(:instance_templates, field: :instance_template)
+  filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
   filter_table_config.add(:names, field: :name)
-  filter_table_config.add(:named_ports, field: :named_ports)
-  filter_table_config.add(:regions, field: :region)
-  filter_table_config.add(:target_pools, field: :target_pools)
-  filter_table_config.add(:target_sizes, field: :target_size)
+  filter_table_config.add(:descriptions, field: :description)
+  filter_table_config.add(:autoscaling_policies, field: :autoscaling_policy)
+  filter_table_config.add(:targets, field: :target)
   filter_table_config.add(:zones, field: :zone)
 
   filter_table_config.connect(self, :table)
@@ -44,7 +38,7 @@ class InstanceGroupManagers < GcpResourceBase
   end
 
   def url
-    'projects/{{project}}/zones/{{zone}}/instanceGroupManagers'
+    'projects/{{project}}/zones/{{zone}}/autoscalers'
   end
 
   def initialize(params = {})
@@ -83,18 +77,12 @@ class InstanceGroupManagers < GcpResourceBase
 
   def transformers
     {
-      'baseInstanceName' => ->(obj) { return :base_instance_name, obj['baseInstanceName'] },
-      'creationTimestamp' => ->(obj) { return :creation_timestamp, parse_time_string(obj['creationTimestamp']) },
-      'currentActions' => ->(obj) { return :current_actions, GoogleInSpec::Compute::Property::InstanceGroupManagerCurrentactions.new(obj['currentActions']) },
-      'description' => ->(obj) { return :description, obj['description'] },
       'id' => ->(obj) { return :id, obj['id'] },
-      'instanceGroup' => ->(obj) { return :instance_group, obj['instanceGroup'] },
-      'instanceTemplate' => ->(obj) { return :instance_template, obj['instanceTemplate'] },
+      'creationTimestamp' => ->(obj) { return :creation_timestamp, parse_time_string(obj['creationTimestamp']) },
       'name' => ->(obj) { return :name, obj['name'] },
-      'namedPorts' => ->(obj) { return :named_ports, GoogleInSpec::Compute::Property::InstanceGroupManagerNamedportsArray.parse(obj['namedPorts']) },
-      'region' => ->(obj) { return :region, obj['region'] },
-      'targetPools' => ->(obj) { return :target_pools, obj['targetPools'] },
-      'targetSize' => ->(obj) { return :target_size, obj['targetSize'] },
+      'description' => ->(obj) { return :description, obj['description'] },
+      'autoscalingPolicy' => ->(obj) { return :autoscaling_policy, GoogleInSpec::Compute::Property::AutoscalerAutoscalingpolicy.new(obj['autoscalingPolicy']) },
+      'target' => ->(obj) { return :target, obj['target'] },
       'zone' => ->(obj) { return :zone, obj['zone'] },
     }
   end
