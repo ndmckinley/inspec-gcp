@@ -12,26 +12,20 @@
 #
 # ----------------------------------------------------------------------------
 
-title 'Test GCP google_pubsub_topics resource.'
+title 'Test GCP google_cloudbuild_trigger resource.'
 
 gcp_project_id = attribute(:gcp_project_id, default: 'gcp_project_id', description: 'The GCP project identifier.')
-topic = attribute('topic', default: {"name"=>"inspec-gcp-topic"})
-
-control 'google_pubsub_topics-1.0' do
+trigger = attribute('trigger', default: {
+  "trigger_template_project": "trigger-project",
+  "trigger_template_branch": "trigger-branch",
+  "trigger_template_repo": "trigger-repo",
+  "filename": "cloudbuild.yaml"
+}, description: 'CloudBuild trigger definition')
+control 'google_cloudbuild_trigger-1.0' do
   impact 1.0
-  title 'google_pubsub_topics resource test'
+  title 'google_cloudbuild_trigger resource test'
 
-  describe google_pubsub_topics(project: gcp_project_id) do
-    it { should exist }
-    its('names') { should include topic['name'] }
-    its('count') { should eq 2 }
-  end
-
-  describe.one do
-    google_pubsub_topics(project: gcp_project_id).names.each do |topic_name|
-      describe google_pubsub_topic(project: gcp_project_id, name: topic_name) do
-        its('name') { should eq topic['name'] }
-      end
-    end
+  describe google_cloudbuild_triggers(project: gcp_project_id) do
+    its('count') { should eq 1 }
   end
 end
