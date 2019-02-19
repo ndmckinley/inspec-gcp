@@ -36,17 +36,10 @@ class Snapshot < GcpResourceBase
   attr_reader :zone
   attr_reader :snapshot_encryption_key
   attr_reader :source_disk_encryption_key
-  def base
-    'https://www.googleapis.com/compute/v1/'
-  end
-
-  def url
-    'projects/{{project}}/global/snapshots/{{name}}'
-  end
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
-    @fetched = @connection.fetch(base, url, params)
+    @fetched = @connection.fetch(_base, _url, params)
     parse unless @fetched.nil?
   end
 
@@ -73,5 +66,15 @@ class Snapshot < GcpResourceBase
 
   def exists?
     !@fetched.nil?
+  end
+
+  private
+
+  def _base
+    'https://www.googleapis.com/compute/v1/'
+  end
+
+  def _url
+    'projects/{{project}}/global/snapshots/{{name}}'
   end
 end

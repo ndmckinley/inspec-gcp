@@ -27,17 +27,10 @@ class SslCertificate < GcpResourceBase
   attr_reader :id
   attr_reader :name
   attr_reader :private_key
-  def base
-    'https://www.googleapis.com/compute/v1/'
-  end
-
-  def url
-    'projects/{{project}}/global/sslCertificates/{{name}}'
-  end
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
-    @fetched = @connection.fetch(base, url, params)
+    @fetched = @connection.fetch(_base, _url, params)
     parse unless @fetched.nil?
   end
 
@@ -57,5 +50,15 @@ class SslCertificate < GcpResourceBase
 
   def exists?
     !@fetched.nil?
+  end
+
+  private
+
+  def _base
+    'https://www.googleapis.com/compute/v1/'
+  end
+
+  def _url
+    'projects/{{project}}/global/sslCertificates/{{name}}'
   end
 end

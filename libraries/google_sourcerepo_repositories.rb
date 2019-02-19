@@ -14,31 +14,25 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class UrlMaps < GcpResourceBase
-  name 'google_compute_url_maps'
-  desc 'UrlMap plural resource'
+class Repositorys < GcpResourceBase
+  name 'google_sourcerepo_repositories'
+  desc 'Repository plural resource'
   supports platform: 'gcp'
 
   attr_reader :table
 
   filter_table_config = FilterTable.create
 
-  filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
-  filter_table_config.add(:default_services, field: :default_service)
-  filter_table_config.add(:descriptions, field: :description)
-  filter_table_config.add(:host_rules, field: :host_rules)
-  filter_table_config.add(:ids, field: :id)
-  filter_table_config.add(:fingerprints, field: :fingerprint)
   filter_table_config.add(:names, field: :name)
-  filter_table_config.add(:path_matchers, field: :path_matchers)
-  filter_table_config.add(:tests, field: :tests)
+  filter_table_config.add(:urls, field: :url)
+  filter_table_config.add(:sizes, field: :size)
 
   filter_table_config.connect(self, :table)
 
   def initialize(params = {})
     super(params.merge({ use_http_transport: true }))
     @params = params
-    @table = fetch_wrapped_resource('items')
+    @table = fetch_wrapped_resource('repos')
   end
 
   def fetch_wrapped_resource(wrap_path)
@@ -71,15 +65,9 @@ class UrlMaps < GcpResourceBase
 
   def transformers
     {
-      'creationTimestamp' => ->(obj) { return :creation_timestamp, parse_time_string(obj['creationTimestamp']) },
-      'defaultService' => ->(obj) { return :default_service, obj['defaultService'] },
-      'description' => ->(obj) { return :description, obj['description'] },
-      'hostRules' => ->(obj) { return :host_rules, GoogleInSpec::Compute::Property::UrlMapHostRulesArray.parse(obj['hostRules']) },
-      'id' => ->(obj) { return :id, obj['id'] },
-      'fingerprint' => ->(obj) { return :fingerprint, obj['fingerprint'] },
       'name' => ->(obj) { return :name, obj['name'] },
-      'pathMatchers' => ->(obj) { return :path_matchers, GoogleInSpec::Compute::Property::UrlMapPathMatchersArray.parse(obj['pathMatchers']) },
-      'tests' => ->(obj) { return :tests, GoogleInSpec::Compute::Property::UrlMapTestsArray.parse(obj['tests']) },
+      'url' => ->(obj) { return :url, obj['url'] },
+      'size' => ->(obj) { return :size, obj['size'] },
     }
   end
 
@@ -91,10 +79,10 @@ class UrlMaps < GcpResourceBase
   private
 
   def _base
-    'https://www.googleapis.com/compute/v1/'
+    'https://sourcerepo.googleapis.com/v1/'
   end
 
   def _url
-    'projects/{{project}}/global/urlMaps'
+    'projects/{{project}}/repos'
   end
 end

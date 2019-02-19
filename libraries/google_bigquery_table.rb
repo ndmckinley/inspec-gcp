@@ -57,17 +57,10 @@ class Table < GcpResourceBase
   attr_reader :expiration_time
   attr_reader :external_data_configuration
   attr_reader :dataset
-  def base
-    'https://www.googleapis.com/bigquery/v2/'
-  end
-
-  def url
-    'projects/{{project}}/datasets/{{dataset}}/tables/{{name}}'
-  end
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
-    @fetched = @connection.fetch(base, url, params)
+    @fetched = @connection.fetch(_base, _url, params)
     parse unless @fetched.nil?
   end
 
@@ -102,5 +95,15 @@ class Table < GcpResourceBase
 
   def exists?
     !@fetched.nil?
+  end
+
+  private
+
+  def _base
+    'https://www.googleapis.com/bigquery/v2/'
+  end
+
+  def _url
+    'projects/{{project}}/datasets/{{dataset}}/tables/{{name}}'
   end
 end

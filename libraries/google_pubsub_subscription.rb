@@ -26,17 +26,10 @@ class Subscription < GcpResourceBase
   attr_reader :topic
   attr_reader :push_config
   attr_reader :ack_deadline_seconds
-  def base
-    'https://pubsub.googleapis.com/v1/'
-  end
-
-  def url
-    'projects/{{project}}/subscriptions/{{name}}'
-  end
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
-    @fetched = @connection.fetch(base, url, params)
+    @fetched = @connection.fetch(_base, _url, params)
     parse unless @fetched.nil?
   end
 
@@ -54,5 +47,15 @@ class Subscription < GcpResourceBase
 
   def exists?
     !@fetched.nil?
+  end
+
+  private
+
+  def _base
+    'https://pubsub.googleapis.com/v1/'
+  end
+
+  def _url
+    'projects/{{project}}/subscriptions/{{name}}'
   end
 end

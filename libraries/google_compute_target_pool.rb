@@ -31,17 +31,10 @@ class TargetPool < GcpResourceBase
   attr_reader :name
   attr_reader :session_affinity
   attr_reader :region
-  def base
-    'https://www.googleapis.com/compute/v1/'
-  end
-
-  def url
-    'projects/{{project}}/regions/{{region}}/targetPools/{{name}}'
-  end
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
-    @fetched = @connection.fetch(base, url, params)
+    @fetched = @connection.fetch(_base, _url, params)
     parse unless @fetched.nil?
   end
 
@@ -71,5 +64,15 @@ class TargetPool < GcpResourceBase
 
   def has_target_instance?(name, zone)
     instances.any? { |instance_self_link| instance_self_link.end_with?("zones/#{zone}/instances/#{name}") }
+  end
+
+  private
+
+  def _base
+    'https://www.googleapis.com/compute/v1/'
+  end
+
+  def _url
+    'projects/{{project}}/regions/{{region}}/targetPools/{{name}}'
   end
 end

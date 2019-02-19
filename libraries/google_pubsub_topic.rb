@@ -22,17 +22,10 @@ class Topic < GcpResourceBase
   supports platform: 'gcp'
 
   attr_reader :name
-  def base
-    'https://pubsub.googleapis.com/v1/'
-  end
-
-  def url
-    'projects/{{project}}/topics/{{name}}'
-  end
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
-    @fetched = @connection.fetch(base, url, params)
+    @fetched = @connection.fetch(_base, _url, params)
     parse unless @fetched.nil?
   end
 
@@ -47,5 +40,15 @@ class Topic < GcpResourceBase
 
   def exists?
     !@fetched.nil?
+  end
+
+  private
+
+  def _base
+    'https://pubsub.googleapis.com/v1/'
+  end
+
+  def _url
+    'projects/{{project}}/topics/{{name}}'
   end
 end

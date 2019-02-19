@@ -15,18 +15,15 @@
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
 
-# A provider to manage Google Compute Engine resources.
-class TargetTcpProxy < GcpResourceBase
-  name 'google_compute_target_tcp_proxy'
-  desc 'TargetTcpProxy'
+# A provider to manage Cloud Source Repositories resources.
+class Repository < GcpResourceBase
+  name 'google_sourcerepo_repository'
+  desc 'Repository'
   supports platform: 'gcp'
 
-  attr_reader :creation_timestamp
-  attr_reader :description
-  attr_reader :id
   attr_reader :name
-  attr_reader :proxy_header
-  attr_reader :service
+  attr_reader :url
+  attr_reader :size
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
@@ -35,12 +32,9 @@ class TargetTcpProxy < GcpResourceBase
   end
 
   def parse
-    @creation_timestamp = parse_time_string(@fetched['creationTimestamp'])
-    @description = @fetched['description']
-    @id = @fetched['id']
     @name = @fetched['name']
-    @proxy_header = @fetched['proxyHeader']
-    @service = @fetched['service']
+    @url = @fetched['url']
+    @size = @fetched['size']
   end
 
   # Handles parsing RFC3339 time string
@@ -55,10 +49,10 @@ class TargetTcpProxy < GcpResourceBase
   private
 
   def _base
-    'https://www.googleapis.com/compute/v1/'
+    'https://sourcerepo.googleapis.com/v1/'
   end
 
   def _url
-    'projects/{{project}}/global/targetTcpProxies/{{name}}'
+    'projects/{{project}}/repos/{{name}}'
   end
 end

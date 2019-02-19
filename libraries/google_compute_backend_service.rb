@@ -43,17 +43,10 @@ class BackendService < GcpResourceBase
   attr_reader :region
   attr_reader :session_affinity
   attr_reader :timeout_sec
-  def base
-    'https://www.googleapis.com/compute/v1/'
-  end
-
-  def url
-    'projects/{{project}}/global/backendServices/{{name}}'
-  end
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
-    @fetched = @connection.fetch(base, url, params)
+    @fetched = @connection.fetch(_base, _url, params)
     parse unless @fetched.nil?
   end
 
@@ -84,5 +77,15 @@ class BackendService < GcpResourceBase
 
   def exists?
     !@fetched.nil?
+  end
+
+  private
+
+  def _base
+    'https://www.googleapis.com/compute/v1/'
+  end
+
+  def _url
+    'projects/{{project}}/global/backendServices/{{name}}'
   end
 end
