@@ -25,7 +25,6 @@ gcp_network_name = attribute(:gcp_network_name, default: 'gcp_network_name', des
 control 'google_compute_routes-1.0' do
   impact 1.0
   title 'google_compute_routes resource test'
-
   describe google_compute_routes(project: gcp_project_id) do
     its('count') { should be >= 1 }
     its('dest_ranges') { should include route['dest_range'] }

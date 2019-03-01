@@ -26,7 +26,6 @@ backend_service = attribute('backend_service', default: {
 control 'google_compute_backend_services-1.0' do
   impact 1.0
   title 'google_compute_backend_services resource test'
-
   describe google_compute_backend_services(project: gcp_project_id) do
     its('count') { should be >= 1 }
     its('names') { should include backend_service['name'] }

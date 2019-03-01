@@ -23,7 +23,6 @@ target_tcp_proxy = attribute('target_tcp_proxy', default: {
 control 'google_compute_target_tcp_proxy-1.0' do
   impact 1.0
   title 'google_compute_target_tcp_proxy resource test'
-
   describe google_compute_target_tcp_proxy(project: gcp_project_id, name: target_tcp_proxy['name']) do
     it { should exist }
     its('proxy_header') { should eq target_tcp_proxy['proxy_header'] }

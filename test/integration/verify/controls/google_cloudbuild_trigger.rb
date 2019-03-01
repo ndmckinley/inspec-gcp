@@ -24,7 +24,6 @@ trigger = attribute('trigger', default: {
 control 'google_cloudbuild_trigger-1.0' do
   impact 1.0
   title 'google_cloudbuild_trigger resource test'
-
   describe google_cloudbuild_triggers(project: gcp_project_id) do
     its('count') { should eq 1 }
   end

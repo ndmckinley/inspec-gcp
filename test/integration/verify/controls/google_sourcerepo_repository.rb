@@ -21,7 +21,6 @@ repository = attribute('repository', default: {
 control 'google_sourcerepo_repository-1.0' do
   impact 1.0
   title 'google_sourcerepo_repository resource test'
-
   describe google_sourcerepo_repository(project: gcp_project_id, name: repository['name']) do
     it { should exist }
   end

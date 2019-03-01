@@ -32,7 +32,6 @@ autoscaler = attribute('autoscaler', default: {
 control 'google_compute_autoscaler-1.0' do
   impact 1.0
   title 'google_compute_autoscaler resource test'
-
   describe google_compute_autoscaler(project: gcp_project_id, zone: gcp_zone, name: autoscaler['name']) do
     it { should exist }
 

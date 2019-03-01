@@ -21,7 +21,6 @@ repository = attribute('repository', default: {
 control 'google_sourcerepo_repositories-1.0' do
   impact 1.0
   title 'google_sourcerepo_repositories resource test'
-
   repo_name = repository['name']
   describe.one do
     google_sourcerepo_repositories(project: gcp_project_id).names.each do |name|

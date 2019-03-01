@@ -22,7 +22,6 @@ global_address = attribute('global_address', default: {
 control 'google_compute_global_addresses-1.0' do
   impact 1.0
   title 'google_compute_global_addresses resource test'
-
   describe google_compute_global_addresses(project: gcp_project_id, name: global_address['name']) do
     its('count') { should be >= 1 }
     its('names') { should include global_address['name'] }

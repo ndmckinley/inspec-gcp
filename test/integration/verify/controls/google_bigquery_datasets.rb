@@ -27,7 +27,6 @@ dataset = attribute('dataset', default: {
 control 'google_bigquery_datasets-1.0' do
   impact 1.0
   title 'google_bigquery_datasets resource test'
-
   describe google_bigquery_datasets(project: gcp_project_id) do
     its('count') { should be >= 1 }
     its('friendly_names') { should include dataset['friendly_name'] }

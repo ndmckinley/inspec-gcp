@@ -33,7 +33,6 @@ instance_template = attribute('instance_template', default: {
 control 'google_compute_instance_templates-1.0' do
   impact 1.0
   title 'google_compute_instance_templates resource test'
-
   describe google_compute_instance_templates(project: gcp_project_id) do
     its('names') { should include instance_template['name'] }
   end

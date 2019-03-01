@@ -32,7 +32,6 @@ autoscaler = attribute('autoscaler', default: {
 control 'google_compute_autoscalers-1.0' do
   impact 1.0
   title 'google_compute_autoscalers resource test'
-
   autoscalers = google_compute_autoscalers(project: gcp_project_id, zone: gcp_zone)
   describe.one do
     autoscalers.autoscaling_policies.each do |autoscaling_policy|

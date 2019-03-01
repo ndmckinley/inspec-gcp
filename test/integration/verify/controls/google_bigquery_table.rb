@@ -33,7 +33,6 @@ dataset = attribute('dataset', default: {
 control 'google_bigquery_table-1.0' do
   impact 1.0
   title 'google_bigquery_table resource test'
-
   describe google_bigquery_table(project: gcp_project_id, dataset: dataset['dataset_id'], name: bigquery_table['table_id']) do
     it { should exist }
 

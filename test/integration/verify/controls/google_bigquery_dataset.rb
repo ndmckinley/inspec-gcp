@@ -27,7 +27,6 @@ dataset = attribute('dataset', default: {
 control 'google_bigquery_dataset-1.0' do
   impact 1.0
   title 'google_bigquery_dataset resource test'
-
   describe google_bigquery_dataset(project: gcp_project_id, name: dataset['dataset_id']) do
     it { should exist }
 

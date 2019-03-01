@@ -26,7 +26,6 @@ instance_group_manager = attribute('instance_group_manager', default: {
 control 'google_compute_instance_group_manager-1.0' do
   impact 1.0
   title 'google_compute_instance_group_manager resource test'
-
   describe google_compute_instance_group_manager(project: gcp_project_id, zone: gcp_zone, name: instance_group_manager['name']) do
     it { should exist }
 

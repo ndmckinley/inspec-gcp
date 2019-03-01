@@ -35,7 +35,6 @@ backend_service = attribute('backend_service', default: {
 control 'google_compute_url_map-1.0' do
   impact 1.0
   title 'google_compute_url_map resource test'
-
   describe google_compute_url_map(project: gcp_project_id, name: url_map['name']) do
     it { should exist }
     its('description') { should eq url_map['description'] }

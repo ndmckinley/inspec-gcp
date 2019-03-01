@@ -20,7 +20,6 @@ topic = attribute('topic', default: {"name"=>"inspec-gcp-topic"})
 control 'google_pubsub_topics-1.0' do
   impact 1.0
   title 'google_pubsub_topics resource test'
-
   describe google_pubsub_topics(project: gcp_project_id) do
     it { should exist }
     its('names') { should include topic['name'] }

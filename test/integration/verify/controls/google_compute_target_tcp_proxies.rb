@@ -23,7 +23,6 @@ target_tcp_proxy = attribute('target_tcp_proxy', default: {
 control 'google_compute_target_tcp_proxies-1.0' do
   impact 1.0
   title 'google_compute_target_tcp_proxies resource test'
-
   describe google_compute_target_tcp_proxies(project: gcp_project_id) do
     its('names') { should include target_tcp_proxy['name'] }
     its('proxy_headers') { should include target_tcp_proxy['proxy_header'] }
