@@ -24,7 +24,6 @@ http_health_check = attribute('http_health_check', default: {
 control 'google_compute_http_health_checks-1.0' do
   impact 1.0
   title 'google_compute_http_health_checks resource test'
-
   describe google_compute_http_health_checks(project: gcp_project_id) do
     its('names') { should include http_health_check['name'] }
     its('timeout_secs') { should include http_health_check['timeout_sec'] }

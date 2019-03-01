@@ -25,7 +25,6 @@ https_health_check = attribute('https_health_check', default: {
 control 'google_compute_https_health_check-1.0' do
   impact 1.0
   title 'google_compute_https_health_check resource test'
-
   describe google_compute_https_health_check(project: gcp_project_id, name: https_health_check['name']) do
     it { should exist }
     its('timeout_sec') { should eq https_health_check['timeout_sec'] }

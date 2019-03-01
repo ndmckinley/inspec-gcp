@@ -22,7 +22,6 @@ global_address = attribute('global_address', default: {
 control 'google_compute_global_address-1.0' do
   impact 1.0
   title 'google_compute_global_address resource test'
-
   describe google_compute_global_address(project: gcp_project_id, name: global_address['name']) do
     it { should exist }
     its('ip_version') { should eq global_address['ip_version'] }

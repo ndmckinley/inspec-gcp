@@ -25,7 +25,6 @@ gcp_zone = attribute(:gcp_zone, default: 'gcp_zone', description: 'The GCP zone.
 control 'google_compute_target_pool-1.0' do
   impact 1.0
   title 'google_compute_target_pool resource test'
-
   describe google_compute_target_pool(project: gcp_project_id, region: gcp_location, name: target_pool['name']) do
     it { should exist }
     its('session_affinity') { should eq target_pool['session_affinity'] }

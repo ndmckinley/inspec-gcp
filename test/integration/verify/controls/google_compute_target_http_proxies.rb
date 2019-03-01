@@ -22,7 +22,6 @@ http_proxy = attribute('http_proxy', default: {
 control 'google_compute_target_http_proxies-1.0' do
   impact 1.0
   title 'google_compute_target_http_proxies resource test'
-
   describe google_compute_target_http_proxies(project: gcp_project_id) do
     its('names') { should include http_proxy['name'] }
     its('descriptions') { should include http_proxy['description'] }

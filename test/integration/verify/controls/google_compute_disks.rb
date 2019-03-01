@@ -22,7 +22,6 @@ gcp_compute_disk_type = attribute(:gcp_compute_disk_type, default: 'gcp_compute_
 control 'google_compute_disks-1.0' do
   impact 1.0
   title 'google_compute_disks resource test'
-
   most_recent_image = google_compute_image(project: gcp_compute_disk_image.split('/').first, name: gcp_compute_disk_image.split('/').last)
   describe google_compute_disks(project: gcp_project_id, zone: gcp_zone) do
     it { should exist }

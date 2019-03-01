@@ -24,7 +24,6 @@ control 'google_compute_snapshots-1.0' do
   impact 1.0
   title 'google_compute_snapshots resource test'
 
-
   describe google_compute_snapshots(project: gcp_project_id) do
     its('count') { should be >= 1 }
   end

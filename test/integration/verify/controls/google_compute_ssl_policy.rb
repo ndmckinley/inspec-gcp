@@ -25,7 +25,6 @@ ssl_policy = attribute('ssl_policy', default: {
 control 'google_compute_ssl_policy-1.0' do
   impact 1.0
   title 'google_compute_ssl_policy resource test'
-
   describe google_compute_ssl_policy(project: gcp_project_id, name: ssl_policy['name']) do
     it { should exist }
     its('min_tls_version') { should eq ssl_policy['min_tls_version'] }

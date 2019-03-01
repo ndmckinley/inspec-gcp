@@ -33,7 +33,6 @@ dataset = attribute('dataset', default: {
 control 'google_bigquery_tables-1.0' do
   impact 1.0
   title 'google_bigquery_tables resource test'
-
   describe.one do
     google_bigquery_tables(project: gcp_project_id, dataset: dataset['dataset_id']).table_references.each do |table_reference|
       describe google_bigquery_table(project: gcp_project_id, dataset: dataset['dataset_id'], name: table_reference.table_id) do

@@ -22,7 +22,6 @@ global_forwarding_rule = attribute('global_forwarding_rule', default: {
 control 'google_compute_global_forwarding_rule-1.0' do
   impact 1.0
   title 'google_compute_global_forwarding_rule resource test'
-
   describe google_compute_global_forwarding_rule(project: gcp_project_id, name: global_forwarding_rule['name']) do
     it { should exist }
     its('port_range') { should eq global_forwarding_rule['port_range'] }

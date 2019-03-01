@@ -28,7 +28,6 @@ gcp_network_name = attribute(:gcp_network_name, default: 'gcp_network_name', des
 control 'google_compute_router-1.0' do
   impact 1.0
   title 'google_compute_router resource test'
-
   describe google_compute_router(project: gcp_project_id, region: gcp_location, name: router['name']) do
     it { should exist }
     its('bgp.asn') { should eq router['bgp_asn'] }

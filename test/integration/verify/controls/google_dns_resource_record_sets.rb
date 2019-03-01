@@ -32,7 +32,6 @@ managed_zone = attribute('managed_zone', default: {
 control 'google_dns_resource_record_sets-1.0' do
   impact 1.0
   title 'google_dns_resource_record_sets resource test'
-
   describe google_dns_resource_record_sets(project: gcp_project_id, name: record_set['name'], managed_zone: managed_zone['name']) do
     its('count') { should eq 3 }
     its('types') { should include record_set['type'] }

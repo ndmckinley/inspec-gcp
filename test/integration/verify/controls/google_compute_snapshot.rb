@@ -24,7 +24,6 @@ control 'google_compute_snapshot-1.0' do
   impact 1.0
   title 'google_compute_snapshot resource test'
 
-
   describe google_compute_snapshot(project: gcp_project_id, name: snapshot['name']) do
     it { should exist }
     its('source_disk') { should match gcp_compute_disk_name }

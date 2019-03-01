@@ -28,7 +28,6 @@ gcp_network_name = attribute(:gcp_network_name, default: 'gcp_network_name', des
 control 'google_compute_routers-1.0' do
   impact 1.0
   title 'google_compute_routers resource test'
-
   describe google_compute_routers(project: gcp_project_id, region: gcp_location) do
     its('names') { should include router['name'] }
   end

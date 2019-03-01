@@ -24,7 +24,6 @@ ssl_certificate = attribute('ssl_certificate', default: {
 control 'google_compute_ssl_certificates-1.0' do
   impact 1.0
   title 'google_compute_ssl_certificates resource test'
-
   describe google_compute_ssl_certificates(project: gcp_project_id) do
 
     its('names') { should include ssl_certificate['name'] }

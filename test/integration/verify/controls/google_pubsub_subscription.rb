@@ -20,7 +20,6 @@ subscription = attribute('subscription', default: {"name"=>"inspec-gcp-subscript
 control 'google_pubsub_subscription-1.0' do
   impact 1.0
   title 'google_pubsub_subscription resource test'
-
   describe google_pubsub_subscription(project: gcp_project_id, name: subscription['name']) do
     it { should exist }
   end

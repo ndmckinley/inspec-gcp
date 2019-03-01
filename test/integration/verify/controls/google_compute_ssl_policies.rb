@@ -25,7 +25,6 @@ ssl_policy = attribute('ssl_policy', default: {
 control 'google_compute_ssl_policies-1.0' do
   impact 1.0
   title 'google_compute_ssl_policies resource test'
-
   describe google_compute_ssl_policies(project: gcp_project_id) do
     it { should exist }
     its('names') { should include ssl_policy['name'] }

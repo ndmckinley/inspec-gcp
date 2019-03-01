@@ -23,7 +23,6 @@ regional_cluster = attribute('regional_cluster', default: {
 control 'google_container_regional_clusters-1.0' do
   impact 1.0
   title 'google_container_regional_clusters resource test'
-
   describe google_container_regional_clusters(project: gcp_project_id, location: regional_cluster['region']) do
     its('count') { should be >= 1 }
     its('names') { should include regional_cluster['name'] }
