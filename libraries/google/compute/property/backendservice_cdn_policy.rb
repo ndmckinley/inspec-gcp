@@ -20,9 +20,12 @@ module GoogleInSpec
       class BackendServiceCdnPolicy
         attr_reader :cache_key_policy
 
+        attr_reader :signed_url_cache_max_age_sec
+
         def initialize(args = nil)
           return if args.nil?
           @cache_key_policy = GoogleInSpec::Compute::Property::BackendServiceCdnPolicyCacheKeyPolicy.new(args['cacheKeyPolicy'])
+          @signed_url_cache_max_age_sec = args['signedUrlCacheMaxAgeSec']
         end
       end
     end
