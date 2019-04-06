@@ -42,15 +42,21 @@ Properties that can be accessed from the `google_compute_global_forwarding_rule`
 
   * `network`: For internal load balancing, this field identifies the network that the load balanced IP should belong to for this Forwarding Rule. If this field is not specified, the default network will be used.  This field is not used for external load balancing.
 
+  * `network_tier`: The networking tier used for configuring this address. This field can take the following values: PREMIUM or STANDARD. If this field is not specified, it is assumed to be PREMIUM.
+
   * `port_range`: This field is used along with the target field for TargetHttpProxy, TargetHttpsProxy, TargetSslProxy, TargetTcpProxy, TargetVpnGateway, TargetPool, TargetInstance.  Applicable only when IPProtocol is TCP, UDP, or SCTP, only packets addressed to ports in the specified range will be forwarded to target. Forwarding rules with the same [IPAddress, IPProtocol] pair must have disjoint port ranges.  Some types of forwarding target have constraints on the acceptable ports:  * TargetHttpProxy: 80, 8080 * TargetHttpsProxy: 443 * TargetTcpProxy: 25, 43, 110, 143, 195, 443, 465, 587, 700, 993, 995,                   1883, 5222 * TargetSslProxy: 25, 43, 110, 143, 195, 443, 465, 587, 700, 993, 995,                   1883, 5222 * TargetVpnGateway: 500, 4500
 
   * `ports`: This field is used along with the backend_service field for internal load balancing.  When the load balancing scheme is INTERNAL, a single port or a comma separated list of ports can be configured. Only packets addressed to these ports will be forwarded to the backends configured with this forwarding rule.  You may specify a maximum of up to 5 ports.
 
   * `subnetwork`: A reference to a subnetwork.  For internal load balancing, this field identifies the subnetwork that the load balanced IP should belong to for this Forwarding Rule.  If the network specified is in auto subnet mode, this field is optional. However, if the network is in custom subnet mode, a subnetwork must be specified.  This field is not used for external load balancing.
 
-  * `region`: A reference to the region where the regional forwarding rule resides. This field is not applicable to global forwarding rules.
-
   * `target`: This target must be a global load balancing resource. The forwarded traffic must be of a type appropriate to the target object.  Valid types: HTTP_PROXY, HTTPS_PROXY, SSL_PROXY, TCP_PROXY
+
+  * `all_ports`: When the load balancing scheme is INTERNAL and protocol is TCP/UDP, omit `port`/`port_range` and specify this field as `true` to allow packets addressed to any ports to be forwarded to the backends configured with this forwarding rule.
+
+  * `service_label`: An optional prefix to the service name for this Forwarding Rule. If specified, will be the first label of the fully qualified service name.  The label must be 1-63 characters long, and comply with RFC1035. Specifically, the label must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.  This field is only used for internal load balancing.
+
+  * `service_name`: The internal fully qualified service name for this Forwarding Rule. This field is only used for internal load balancing.
 
 
 

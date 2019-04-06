@@ -33,11 +33,14 @@ class GlobalForwardingRules < GcpResourceBase
   filter_table_config.add(:load_balancing_schemes, field: :load_balancing_scheme)
   filter_table_config.add(:names, field: :name)
   filter_table_config.add(:networks, field: :network)
+  filter_table_config.add(:network_tiers, field: :network_tier)
   filter_table_config.add(:port_ranges, field: :port_range)
   filter_table_config.add(:ports, field: :ports)
   filter_table_config.add(:subnetworks, field: :subnetwork)
-  filter_table_config.add(:regions, field: :region)
   filter_table_config.add(:targets, field: :target)
+  filter_table_config.add(:all_ports, field: :all_ports)
+  filter_table_config.add(:service_labels, field: :service_label)
+  filter_table_config.add(:service_names, field: :service_name)
 
   filter_table_config.connect(self, :table)
 
@@ -87,11 +90,14 @@ class GlobalForwardingRules < GcpResourceBase
       'loadBalancingScheme' => ->(obj) { return :load_balancing_scheme, obj['loadBalancingScheme'] },
       'name' => ->(obj) { return :name, obj['name'] },
       'network' => ->(obj) { return :network, obj['network'] },
+      'networkTier' => ->(obj) { return :network_tier, obj['networkTier'] },
       'portRange' => ->(obj) { return :port_range, obj['portRange'] },
       'ports' => ->(obj) { return :ports, obj['ports'] },
       'subnetwork' => ->(obj) { return :subnetwork, obj['subnetwork'] },
-      'region' => ->(obj) { return :region, obj['region'] },
       'target' => ->(obj) { return :target, obj['target'] },
+      'allPorts' => ->(obj) { return :all_ports, obj['allPorts'] },
+      'serviceLabel' => ->(obj) { return :service_label, obj['serviceLabel'] },
+      'serviceName' => ->(obj) { return :service_name, obj['serviceName'] },
     }
   end
 
