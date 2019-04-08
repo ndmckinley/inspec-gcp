@@ -28,11 +28,14 @@ See [google_compute_global_forwarding_rule.md](google_compute_global_forwarding_
   * `load_balancing_schemes`: an array of `google_compute_global_forwarding_rule` load_balancing_scheme
   * `names`: an array of `google_compute_global_forwarding_rule` name
   * `networks`: an array of `google_compute_global_forwarding_rule` network
+  * `network_tiers`: an array of `google_compute_global_forwarding_rule` network_tier
   * `port_ranges`: an array of `google_compute_global_forwarding_rule` port_range
   * `ports`: an array of `google_compute_global_forwarding_rule` ports
   * `subnetworks`: an array of `google_compute_global_forwarding_rule` subnetwork
-  * `regions`: an array of `google_compute_global_forwarding_rule` region
   * `targets`: an array of `google_compute_global_forwarding_rule` target
+  * `all_ports`: an array of `google_compute_global_forwarding_rule` all_ports
+  * `service_labels`: an array of `google_compute_global_forwarding_rule` service_label
+  * `service_names`: an array of `google_compute_global_forwarding_rule` service_name
 
 ## Filter Criteria
 This resource supports all of the above properties as filter criteria, which can be used

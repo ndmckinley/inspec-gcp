@@ -32,11 +32,14 @@ class GlobalForwardingRule < GcpResourceBase
   attr_reader :load_balancing_scheme
   attr_reader :name
   attr_reader :network
+  attr_reader :network_tier
   attr_reader :port_range
   attr_reader :ports
   attr_reader :subnetwork
-  attr_reader :region
   attr_reader :target
+  attr_reader :all_ports
+  attr_reader :service_label
+  attr_reader :service_name
 
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
@@ -56,11 +59,14 @@ class GlobalForwardingRule < GcpResourceBase
     @load_balancing_scheme = @fetched['loadBalancingScheme']
     @name = @fetched['name']
     @network = @fetched['network']
+    @network_tier = @fetched['networkTier']
     @port_range = @fetched['portRange']
     @ports = @fetched['ports']
     @subnetwork = @fetched['subnetwork']
-    @region = @fetched['region']
     @target = @fetched['target']
+    @all_ports = @fetched['allPorts']
+    @service_label = @fetched['serviceLabel']
+    @service_name = @fetched['serviceName']
   end
 
   # Handles parsing RFC3339 time string
