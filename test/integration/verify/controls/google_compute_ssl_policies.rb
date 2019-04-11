@@ -19,8 +19,8 @@ ssl_policy = attribute('ssl_policy', default: {
   "name": "inspec-gcp-ssl-policy",
   "min_tls_version": "TLS_1_2",
   "profile": "CUSTOM",
-  "custom_feature": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
-  "custom_feature2": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+  "custom_features1": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+  "custom_features2": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 })
 control 'google_compute_ssl_policies-1.0' do
   impact 1.0

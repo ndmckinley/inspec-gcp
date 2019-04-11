@@ -19,6 +19,7 @@ end
 describe google_compute_ssl_policy(project: 'chef-gcp-inspec', name: 'nonexistent') do
   it { should_not exist }
 end
+
 ```
 
 ## Properties

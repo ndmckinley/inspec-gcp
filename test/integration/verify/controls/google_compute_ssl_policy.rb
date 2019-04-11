@@ -19,8 +19,8 @@ ssl_policy = attribute('ssl_policy', default: {
   "name": "inspec-gcp-ssl-policy",
   "min_tls_version": "TLS_1_2",
   "profile": "CUSTOM",
-  "custom_feature": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
-  "custom_feature2": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+  "custom_features1": "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+  "custom_features2": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 })
 control 'google_compute_ssl_policy-1.0' do
   impact 1.0
@@ -30,8 +30,8 @@ control 'google_compute_ssl_policy-1.0' do
     it { should exist }
     its('min_tls_version') { should eq ssl_policy['min_tls_version'] }
     its('profile') { should eq ssl_policy['profile'] }
-    its('custom_features') { should include ssl_policy['custom_feature'] }
-    its('custom_features') { should include ssl_policy['custom_feature2'] }
+    its('custom_features') { should include ssl_policy['custom_features1'] }
+    its('custom_features') { should include ssl_policy['custom_features2'] }
   end
 
   describe google_compute_ssl_policy(project: gcp_project_id, name: 'nonexistent') do
