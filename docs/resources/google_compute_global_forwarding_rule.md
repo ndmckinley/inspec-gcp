@@ -22,6 +22,8 @@ end
 ## Properties
 Properties that can be accessed from the `google_compute_global_forwarding_rule` resource:
 
+  * `backend_service`: A reference to a BackendService to receive the matched traffic.  This is used for internal load balancing. (not used for external load balancing)
+
   * `creation_timestamp`: Creation timestamp in RFC3339 text format.
 
   * `description`: An optional description of this resource. Provide this property when you create the resource.
@@ -31,8 +33,6 @@ Properties that can be accessed from the `google_compute_global_forwarding_rule`
   * `ip_address`: The IP address that this forwarding rule is serving on behalf of.  Addresses are restricted based on the forwarding rule's load balancing scheme (EXTERNAL or INTERNAL) and scope (global or regional).  When the load balancing scheme is EXTERNAL, for global forwarding rules, the address must be a global IP, and for regional forwarding rules, the address must live in the same region as the forwarding rule. If this field is empty, an ephemeral IPv4 address from the same scope (global or regional) will be assigned. A regional forwarding rule supports IPv4 only. A global forwarding rule supports either IPv4 or IPv6.  When the load balancing scheme is INTERNAL, this can only be an RFC 1918 IP address belonging to the network/subnet configured for the forwarding rule. By default, if this field is empty, an ephemeral internal IP address will be automatically allocated from the IP range of the subnet or network configured for this forwarding rule.  An address can be specified either by a literal IP address or a URL reference to an existing Address resource. The following examples are all valid:  * 100.1.2.3 * https://www.googleapis.com/compute/v1/projects/project/regions/      region/addresses/address * projects/project/regions/region/addresses/address * regions/region/addresses/address * global/addresses/address * address
 
   * `ip_protocol`: The IP protocol to which this rule applies. Valid options are TCP, UDP, ESP, AH, SCTP or ICMP.  When the load balancing scheme is INTERNAL, only TCP and UDP are valid.
-
-  * `backend_service`: A reference to a BackendService to receive the matched traffic.  This is used for internal load balancing. (not used for external load balancing)
 
   * `ip_version`: The IP Version that will be used by this forwarding rule. Valid options are IPV4 or IPV6. This can only be specified for a global forwarding rule.
 
@@ -47,8 +47,6 @@ Properties that can be accessed from the `google_compute_global_forwarding_rule`
   * `ports`: This field is used along with the backend_service field for internal load balancing.  When the load balancing scheme is INTERNAL, a single port or a comma separated list of ports can be configured. Only packets addressed to these ports will be forwarded to the backends configured with this forwarding rule.  You may specify a maximum of up to 5 ports.
 
   * `subnetwork`: A reference to a subnetwork.  For internal load balancing, this field identifies the subnetwork that the load balanced IP should belong to for this Forwarding Rule.  If the network specified is in auto subnet mode, this field is optional. However, if the network is in custom subnet mode, a subnetwork must be specified.  This field is not used for external load balancing.
-
-  * `region`: A reference to the region where the regional forwarding rule resides. This field is not applicable to global forwarding rules.
 
   * `target`: This target must be a global load balancing resource. The forwarded traffic must be of a type appropriate to the target object.  Valid types: HTTP_PROXY, HTTPS_PROXY, SSL_PROXY, TCP_PROXY
 
