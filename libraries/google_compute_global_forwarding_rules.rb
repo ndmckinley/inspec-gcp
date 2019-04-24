@@ -23,12 +23,12 @@ class GlobalForwardingRules < GcpResourceBase
 
   filter_table_config = FilterTable.create
 
+  filter_table_config.add(:backend_services, field: :backend_service)
   filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
   filter_table_config.add(:descriptions, field: :description)
   filter_table_config.add(:ids, field: :id)
   filter_table_config.add(:ip_addresses, field: :ip_address)
   filter_table_config.add(:ip_protocols, field: :ip_protocol)
-  filter_table_config.add(:backend_services, field: :backend_service)
   filter_table_config.add(:ip_versions, field: :ip_version)
   filter_table_config.add(:load_balancing_schemes, field: :load_balancing_scheme)
   filter_table_config.add(:names, field: :name)
@@ -36,7 +36,6 @@ class GlobalForwardingRules < GcpResourceBase
   filter_table_config.add(:port_ranges, field: :port_range)
   filter_table_config.add(:ports, field: :ports)
   filter_table_config.add(:subnetworks, field: :subnetwork)
-  filter_table_config.add(:regions, field: :region)
   filter_table_config.add(:targets, field: :target)
 
   filter_table_config.connect(self, :table)
@@ -77,12 +76,12 @@ class GlobalForwardingRules < GcpResourceBase
 
   def transformers
     {
+      'backendService' => ->(obj) { return :backend_service, obj['backendService'] },
       'creationTimestamp' => ->(obj) { return :creation_timestamp, parse_time_string(obj['creationTimestamp']) },
       'description' => ->(obj) { return :description, obj['description'] },
       'id' => ->(obj) { return :id, obj['id'] },
       'IPAddress' => ->(obj) { return :ip_address, obj['IPAddress'] },
       'IPProtocol' => ->(obj) { return :ip_protocol, obj['IPProtocol'] },
-      'backendService' => ->(obj) { return :backend_service, obj['backendService'] },
       'ipVersion' => ->(obj) { return :ip_version, obj['ipVersion'] },
       'loadBalancingScheme' => ->(obj) { return :load_balancing_scheme, obj['loadBalancingScheme'] },
       'name' => ->(obj) { return :name, obj['name'] },
@@ -90,7 +89,6 @@ class GlobalForwardingRules < GcpResourceBase
       'portRange' => ->(obj) { return :port_range, obj['portRange'] },
       'ports' => ->(obj) { return :ports, obj['ports'] },
       'subnetwork' => ->(obj) { return :subnetwork, obj['subnetwork'] },
-      'region' => ->(obj) { return :region, obj['region'] },
       'target' => ->(obj) { return :target, obj['target'] },
     }
   end
