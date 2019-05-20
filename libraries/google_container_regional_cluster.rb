@@ -49,6 +49,8 @@ class RegionalCluster < GcpResourceBase
   attr_reader :services_ipv4_cidr
   attr_reader :current_node_count
   attr_reader :expire_time
+  attr_reader :resource_labels
+  attr_reader :label_fingerprint
   attr_reader :location
 
   def initialize(params)
@@ -80,6 +82,8 @@ class RegionalCluster < GcpResourceBase
     @services_ipv4_cidr = @fetched['servicesIpv4Cidr']
     @current_node_count = @fetched['currentNodeCount']
     @expire_time = parse_time_string(@fetched['expireTime'])
+    @resource_labels = @fetched['resourceLabels']
+    @label_fingerprint = @fetched['labelFingerprint']
     @location = @fetched['location']
   end
 

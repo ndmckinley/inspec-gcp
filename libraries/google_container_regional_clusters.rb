@@ -44,6 +44,8 @@ class RegionalClusters < GcpResourceBase
   filter_table_config.add(:services_ipv4_cidrs, field: :services_ipv4_cidr)
   filter_table_config.add(:current_node_counts, field: :current_node_count)
   filter_table_config.add(:expire_times, field: :expire_time)
+  filter_table_config.add(:resource_labels, field: :resource_labels)
+  filter_table_config.add(:label_fingerprints, field: :label_fingerprint)
   filter_table_config.add(:locations, field: :location)
 
   filter_table_config.connect(self, :table)
@@ -105,6 +107,8 @@ class RegionalClusters < GcpResourceBase
       'servicesIpv4Cidr' => ->(obj) { return :services_ipv4_cidr, obj['servicesIpv4Cidr'] },
       'currentNodeCount' => ->(obj) { return :current_node_count, obj['currentNodeCount'] },
       'expireTime' => ->(obj) { return :expire_time, parse_time_string(obj['expireTime']) },
+      'resourceLabels' => ->(obj) { return :resource_labels, obj['resourceLabels'] },
+      'labelFingerprint' => ->(obj) { return :label_fingerprint, obj['labelFingerprint'] },
       'location' => ->(obj) { return :location, obj['location'] },
     }
   end
