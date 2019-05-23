@@ -108,6 +108,10 @@ Properties that can be accessed from the `google_container_regional_cluster` res
 
   * `expire_time`: The time the cluster will be automatically deleted in RFC3339 text format.
 
+  * `resource_labels`: The resource labels for the cluster to use to annotate any related Google Compute Engine resources.
+
+  * `label_fingerprint`: The fingerprint used for optimistic locking of this resource.  Used internally during updates.
+
   * `location`: The location where the cluster is deployed
 
 

@@ -40,6 +40,8 @@ See [google_container_regional_cluster.md](google_container_regional_cluster.md)
   * `services_ipv4_cidrs`: an array of `google_container_regional_cluster` services_ipv4_cidr
   * `current_node_counts`: an array of `google_container_regional_cluster` current_node_count
   * `expire_times`: an array of `google_container_regional_cluster` expire_time
+  * `resource_labels`: an array of `google_container_regional_cluster` resource_labels
+  * `label_fingerprints`: an array of `google_container_regional_cluster` label_fingerprint
   * `locations`: an array of `google_container_regional_cluster` location
 
 ## Filter Criteria
