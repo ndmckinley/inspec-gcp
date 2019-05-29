@@ -51,7 +51,7 @@ class RegionalClusters < GcpResourceBase
   def initialize(params = {})
     super(params.merge({ use_http_transport: true }))
     @params = params
-    @table = fetch_wrapped_resource('clusters')
+    @table = fetch_wrapped_resource('Clusters')
   end
 
   def fetch_wrapped_resource(wrap_path)

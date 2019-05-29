@@ -37,7 +37,7 @@ class Subscriptions < GcpResourceBase
   def initialize(params = {})
     super(params.merge({ use_http_transport: true }))
     @params = params
-    @table = fetch_wrapped_resource('subscriptions')
+    @table = fetch_wrapped_resource('Subscriptions')
   end
 
   def fetch_wrapped_resource(wrap_path)
