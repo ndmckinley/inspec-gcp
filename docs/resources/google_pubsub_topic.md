@@ -22,6 +22,8 @@ Properties that can be accessed from the `google_pubsub_topic` resource:
 
   * `name`: Name of the topic.
 
+  * `kms_key_name`: The resource name of the Cloud KMS CryptoKey to be used to protect access to messsages published on this topic.  The expected format is `projects/*/locations/*/keyRings/*/cryptoKeys/*`
+
   * `labels`: A set of key/value label pairs to assign to this Topic.
 
 
