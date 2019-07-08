@@ -10,6 +10,7 @@ gem 'rubocop'
 
 group :development do
   gem 'github_changelog_generator'
+  gem 'passgen'
   gem 'pry-coolline'
   gem 'rake'
   gem 'vcr'
