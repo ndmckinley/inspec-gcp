@@ -29,8 +29,6 @@ module GoogleInSpec
 
         attr_reader :disks
 
-        attr_reader :labels
-
         attr_reader :machine_type
 
         attr_reader :min_cpu_platform
@@ -53,7 +51,6 @@ module GoogleInSpec
           @can_ip_forward = args['canIpForward']
           @description = args['description']
           @disks = GoogleInSpec::Compute::Property::InstanceTemplatePropertiesDisksArray.parse(args['disks'], to_s)
-          @labels = args['labels']
           @machine_type = args['machineType']
           @min_cpu_platform = args['minCpuPlatform']
           @metadata = args['metadata']
