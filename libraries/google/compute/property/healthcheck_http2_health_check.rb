@@ -16,7 +16,9 @@
 module GoogleInSpec
   module Compute
     module Property
-      class HealthCheckSslHealthCheck
+      class HealthCheckHttp2HealthCheck
+        attr_reader :host
+
         attr_reader :request_path
 
         attr_reader :response
@@ -32,6 +34,7 @@ module GoogleInSpec
         def initialize(args = nil, parent_identifier = nil)
           return if args.nil?
           @parent_identifier = parent_identifier
+          @host = args['host']
           @request_path = args['requestPath']
           @response = args['response']
           @port = args['port']
@@ -41,7 +44,7 @@ module GoogleInSpec
         end
 
         def to_s
-          "#{@parent_identifier} HealthCheckSslHealthCheck"
+          "#{@parent_identifier} HealthCheckHttp2HealthCheck"
         end
       end
     end
