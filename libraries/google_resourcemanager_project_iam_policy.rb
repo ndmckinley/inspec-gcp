@@ -17,10 +17,10 @@ require 'gcp_backend'
 require 'google/iam/property/iam_policy_audit_configs'
 require 'google/iam/property/iam_policy_bindings'
 
-# A provider to manage Cloud Pub/Sub IAM Policy resources.
-class SubscriptionIamPolicy < GcpResourceBase
-  name 'google_pubsub_subscription_iam_policy'
-  desc 'Subscription Iam Policy'
+# A provider to manage Resource Manager IAM Policy resources.
+class ProjectIamPolicy < GcpResourceBase
+  name 'google_resourcemanager_project_iam_policy'
+  desc 'Project Iam Policy'
   supports platform: 'gcp'
 
   attr_reader :params
@@ -30,7 +30,7 @@ class SubscriptionIamPolicy < GcpResourceBase
   def initialize(params)
     super(params.merge({ use_http_transport: true }))
     @params = params
-    @fetched = @connection.fetch(product_url, resource_base_url, params, Get)
+    @fetched = @connection.fetch(product_url, resource_base_url, params, Post)
     parse unless @fetched.nil?
   end
 
@@ -44,16 +44,16 @@ class SubscriptionIamPolicy < GcpResourceBase
   end
 
   def to_s
-    "Subscription IamPolicy #{@params[:name]}"
+    "Project IamPolicy #{@params[:name]}"
   end
 
   private
 
   def product_url
-    'https://pubsub.googleapis.com/v1/'
+    'https://cloudresourcemanager.googleapis.com/v1/'
   end
 
   def resource_base_url
-    'projects/{{project}}/subscriptions/{{name}}:getIamPolicy'
+    'projects/{{project_id}}:getIamPolicy'
   end
 end
