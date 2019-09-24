@@ -49,6 +49,12 @@ Properties that can be accessed from the `google_bigquery_dataset` resource:
 
     * `view`: A view from a different dataset to grant access to. Queries executed against that view will have read access to tables in this dataset. The role field is not required when this field is set. If that view is updated by any user, access to the view needs to be granted again via an update operation.
 
+        * `dataset_id`: The ID of the dataset containing this table.
+
+        * `project_id`: The ID of the project containing this table.
+
+        * `table_id`: The ID of the table. The ID must contain only letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum length is 1,024 characters.
+
   * `creation_time`: The time when this dataset was created, in milliseconds since the epoch.
 
   * `dataset_reference`: A reference that identifies the dataset.

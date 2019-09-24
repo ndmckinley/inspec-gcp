@@ -55,6 +55,16 @@ Properties that can be accessed from the `google_compute_backend_service` resour
 
     * `cache_key_policy`: The CacheKeyPolicy for this CdnPolicy.
 
+        * `include_host`: If true requests to different hosts will be cached separately.
+
+        * `include_protocol`: If true, http and https requests will be cached separately.
+
+        * `include_query_string`: If true, include query string parameters in the cache key according to query_string_whitelist and query_string_blacklist. If neither is set, the entire query string will be included.  If false, the query string will be excluded from the cache key entirely.
+
+        * `query_string_blacklist`: Names of query string parameters to exclude in cache keys.  All other parameters will be included. Either specify query_string_whitelist or query_string_blacklist, not both. '&' and '=' will be percent encoded and not treated as delimiters.
+
+        * `query_string_whitelist`: Names of query string parameters to include in cache keys.  All other parameters will be excluded. Either specify query_string_whitelist or query_string_blacklist, not both. '&' and '=' will be percent encoded and not treated as delimiters.
+
     * `signed_url_cache_max_age_sec`: Maximum number of seconds the response to a signed URL request will be considered fresh, defaults to 1hr (3600s). After this time period, the response will be revalidated before being served.  When serving responses to signed URL requests, Cloud CDN will internally behave as though all responses from this backend had a "Cache-Control: public, max-age=[TTL]" header, regardless of any existing Cache-Control header. The actual headers served in responses will not be altered.
 
   * `connection_draining`: Settings for connection draining
