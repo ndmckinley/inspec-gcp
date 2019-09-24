@@ -22,7 +22,6 @@ end
 ## Properties
 Properties that can be accessed from the `google_compute_snapshot` resource:
 
-
   * `creation_timestamp`: Creation timestamp in RFC3339 text format.
 
   * `id`: The unique identifier for the resource.
@@ -58,6 +57,7 @@ Properties that can be accessed from the `google_compute_snapshot` resource:
     * `raw_key`: Specifies a 256-bit customer-supplied encryption key, encoded in RFC 4648 base64 to either encrypt or decrypt this resource.
 
     * `kms_key_name`: The name of the encryption key that is stored in Google Cloud KMS.
+
 
 
 ## GCP Permissions

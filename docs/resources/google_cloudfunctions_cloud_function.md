@@ -25,7 +25,6 @@ end
 ## Properties
 Properties that can be accessed from the `google_cloudfunctions_cloud_function` resource:
 
-
   * `name`: A user-defined name of the function. Function names must be unique globally and match pattern `projects/*/locations/*/functions/*`.
 
   * `description`: User-provided description of a function.
@@ -73,6 +72,7 @@ Properties that can be accessed from the `google_cloudfunctions_cloud_function` 
     * `service`: The hostname of the service that should be observed.
 
   * `location`: The location of this cloud function.
+
 
 
 ## GCP Permissions

@@ -21,7 +21,6 @@ end
 ## Properties
 Properties that can be accessed from the `google_compute_global_address` resource:
 
-
   * `address`: The static external IP address represented by this resource.
 
   * `creation_timestamp`: Creation timestamp in RFC3339 text format.
@@ -43,6 +42,7 @@ Properties that can be accessed from the `google_compute_global_address` resourc
   * `purpose`: The purpose of the resource. For global internal addresses it can be  * VPC_PEERING - for peer networks  This should only be set when using an Internal address.
 
   * `network`: The URL of the network in which to reserve the IP range. The IP range must be in RFC1918 space. The network cannot be deleted if there are any reserved IP ranges referring to it.  This should only be set when using an Internal address.
+
 
 
 ## GCP Permissions
