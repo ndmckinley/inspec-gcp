@@ -47,6 +47,10 @@ Properties that can be accessed from the `google_compute_router` resource:
 
     * `advertised_ip_ranges`: User-specified list of individual IP ranges to advertise in custom mode. This field can only be populated if advertiseMode is CUSTOM and is advertised to all peers of the router. These IP ranges will be advertised in addition to any specified groups. Leave this field blank to advertise no custom IP ranges.
 
+        * `range`: The IP range to advertise. The value must be a CIDR-formatted string.
+
+        * `description`: User-specified description for the IP range.
+
   * `region`: Region where the router resides.
 
 
