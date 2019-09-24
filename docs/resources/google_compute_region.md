@@ -65,7 +65,6 @@ end
 ## Properties
 Properties that can be accessed from the `google_compute_region` resource:
 
-
   * `creation_timestamp`: Creation timestamp in RFC3339 text format.
 
   * `deprecated`: The deprecation state of this resource.
@@ -99,6 +98,7 @@ Properties that can be accessed from the `google_compute_region` resource:
   * `status`: Status of the region, either UP or DOWN.
 
   * `zones`: List of zones within the region
+
 
 
 ## GCP Permissions
