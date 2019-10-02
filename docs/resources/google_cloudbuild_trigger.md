@@ -42,7 +42,7 @@ Properties that can be accessed from the `google_cloudbuild_trigger` resource:
 
   * `included_files`: ignoredFiles and includedFiles are file glob matches using http://godoc/pkg/path/filepath#Match extended with support for `**`.  If any of the files altered in the commit pass the ignoredFiles filter and includedFiles is empty, then as far as this filter is concerned, we should trigger the build.  If any of the files altered in the commit pass the ignoredFiles filter and includedFiles is not empty, then we make sure that at least one of those files matches a includedFiles glob. If not, then we do not trigger a build.
 
-  * `trigger_template`: Template describing the types of source changes to trigger a build.  Branch and tag names in trigger templates are interpreted as regular expressions. Any branch or tag change that matches that regular expression will trigger a build.
+  * `trigger_template`: Template describing the types of source changes to trigger a build.  Branch and tag names in trigger templates are interpreted as regular expressions. Any branch or tag change that matches that regular expression will trigger a build.  Mutually exclusive with `github`.
 
     * `project_id`: ID of the project that owns the Cloud Source Repository. If omitted, the project ID requesting the build is assumed.
 
