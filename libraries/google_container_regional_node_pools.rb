@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class ContainerRegionalNodePools < GcpResourceBase
+class RegionalNodePools < GcpResourceBase
   name 'google_container_regional_node_pools'
   desc 'RegionalNodePool plural resource'
   supports platform: 'gcp'

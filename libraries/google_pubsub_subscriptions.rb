@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class PubsubSubscriptions < GcpResourceBase
+class Subscriptions < GcpResourceBase
   name 'google_pubsub_subscriptions'
   desc 'Subscription plural resource'
   supports platform: 'gcp'

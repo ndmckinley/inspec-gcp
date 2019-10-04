@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class MLEngineModels < GcpResourceBase
+class Models < GcpResourceBase
   name 'google_ml_engine_models'
   desc 'Model plural resource'
   supports platform: 'gcp'

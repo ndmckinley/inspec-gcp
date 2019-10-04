@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class ComputeTargetPools < GcpResourceBase
+class TargetPools < GcpResourceBase
   name 'google_compute_target_pools'
   desc 'TargetPool plural resource'
   supports platform: 'gcp'

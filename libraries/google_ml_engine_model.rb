@@ -17,7 +17,7 @@ require 'gcp_backend'
 require 'google/mlengine/property/model_default_version'
 
 # A provider to manage ML Engine resources.
-class MLEngineModel < GcpResourceBase
+class Model < GcpResourceBase
   name 'google_ml_engine_model'
   desc 'Model'
   supports platform: 'gcp'

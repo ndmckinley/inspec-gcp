@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class DataprocClusters < GcpResourceBase
+class Clusters < GcpResourceBase
   name 'google_dataproc_clusters'
   desc 'Cluster plural resource'
   supports platform: 'gcp'

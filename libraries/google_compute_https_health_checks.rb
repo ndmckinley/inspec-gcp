@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class ComputeHttpsHealthChecks < GcpResourceBase
+class HttpsHealthChecks < GcpResourceBase
   name 'google_compute_https_health_checks'
   desc 'HttpsHealthCheck plural resource'
   supports platform: 'gcp'

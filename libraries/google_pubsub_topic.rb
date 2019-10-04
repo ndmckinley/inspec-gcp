@@ -17,7 +17,7 @@ require 'gcp_backend'
 require 'google/pubsub/property/topic_message_storage_policy'
 
 # A provider to manage Cloud Pub/Sub resources.
-class PubsubTopic < GcpResourceBase
+class Topic < GcpResourceBase
   name 'google_pubsub_topic'
   desc 'Topic'
   supports platform: 'gcp'

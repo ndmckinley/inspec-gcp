@@ -16,7 +16,7 @@
 require 'gcp_backend'
 
 # A provider to manage Resource Manager resources.
-class ResourceManagerFolder < GcpResourceBase
+class Folder < GcpResourceBase
   name 'google_resourcemanager_folder'
   desc 'Folder'
   supports platform: 'gcp'

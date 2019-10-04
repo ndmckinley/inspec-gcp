@@ -17,7 +17,7 @@ require 'gcp_backend'
 require 'google/compute/property/globalforwardingrule_metadata_filters'
 
 # A provider to manage Compute Engine resources.
-class ComputeGlobalForwardingRule < GcpResourceBase
+class GlobalForwardingRule < GcpResourceBase
   name 'google_compute_global_forwarding_rule'
   desc 'GlobalForwardingRule'
   supports platform: 'gcp'

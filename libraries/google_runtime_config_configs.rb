@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class RuntimeConfigConfigs < GcpResourceBase
+class Configs < GcpResourceBase
   name 'google_runtime_config_configs'
   desc 'Config plural resource'
   supports platform: 'gcp'

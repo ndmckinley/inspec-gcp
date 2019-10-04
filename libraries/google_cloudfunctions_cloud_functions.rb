@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class CloudFunctionsCloudFunctions < GcpResourceBase
+class CloudFunctions < GcpResourceBase
   name 'google_cloudfunctions_cloud_functions'
   desc 'CloudFunction plural resource'
   supports platform: 'gcp'

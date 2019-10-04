@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class LoggingFolderExclusions < GcpResourceBase
+class FolderExclusions < GcpResourceBase
   name 'google_logging_folder_exclusions'
   desc 'FolderExclusion plural resource'
   supports platform: 'gcp'

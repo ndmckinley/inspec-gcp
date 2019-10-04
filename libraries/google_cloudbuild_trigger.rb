@@ -19,7 +19,7 @@ require 'google/cloudbuild/property/trigger_build_steps'
 require 'google/cloudbuild/property/trigger_trigger_template'
 
 # A provider to manage Cloud Build resources.
-class CloudBuildTrigger < GcpResourceBase
+class Trigger < GcpResourceBase
   name 'google_cloudbuild_trigger'
   desc 'Trigger'
   supports platform: 'gcp'

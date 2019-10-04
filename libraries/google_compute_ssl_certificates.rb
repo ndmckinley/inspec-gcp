@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class ComputeSslCertificates < GcpResourceBase
+class SslCertificates < GcpResourceBase
   name 'google_compute_ssl_certificates'
   desc 'SslCertificate plural resource'
   supports platform: 'gcp'

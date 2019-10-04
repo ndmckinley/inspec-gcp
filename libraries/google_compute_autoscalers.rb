@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class ComputeAutoscalers < GcpResourceBase
+class Autoscalers < GcpResourceBase
   name 'google_compute_autoscalers'
   desc 'Autoscaler plural resource'
   supports platform: 'gcp'

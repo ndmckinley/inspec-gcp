@@ -18,7 +18,7 @@ require 'google/pubsub/property/subscription_expiration_policy'
 require 'google/pubsub/property/subscription_push_config'
 
 # A provider to manage Cloud Pub/Sub resources.
-class PubsubSubscription < GcpResourceBase
+class Subscription < GcpResourceBase
   name 'google_pubsub_subscription'
   desc 'Subscription'
   supports platform: 'gcp'

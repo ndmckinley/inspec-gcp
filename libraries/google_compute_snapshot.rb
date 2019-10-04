@@ -18,7 +18,7 @@ require 'google/compute/property/snapshot_snapshot_encryption_key'
 require 'google/compute/property/snapshot_source_disk_encryption_key'
 
 # A provider to manage Compute Engine resources.
-class ComputeSnapshot < GcpResourceBase
+class Snapshot < GcpResourceBase
   name 'google_compute_snapshot'
   desc 'Snapshot'
   supports platform: 'gcp'

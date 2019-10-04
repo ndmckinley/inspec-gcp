@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class ComputeUrlMaps < GcpResourceBase
+class UrlMaps < GcpResourceBase
   name 'google_compute_url_maps'
   desc 'UrlMap plural resource'
   supports platform: 'gcp'

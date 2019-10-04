@@ -17,7 +17,7 @@ require 'gcp_backend'
 require 'google/compute/property/sslpolicy_warnings'
 
 # A provider to manage Compute Engine resources.
-class ComputeSslPolicy < GcpResourceBase
+class SslPolicy < GcpResourceBase
   name 'google_compute_ssl_policy'
   desc 'SslPolicy'
   supports platform: 'gcp'

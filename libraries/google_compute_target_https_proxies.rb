@@ -14,7 +14,7 @@
 #
 # ----------------------------------------------------------------------------
 require 'gcp_backend'
-class ComputeTargetHttpsProxys < GcpResourceBase
+class TargetHttpsProxys < GcpResourceBase
   name 'google_compute_target_https_proxies'
   desc 'TargetHttpsProxy plural resource'
   supports platform: 'gcp'
