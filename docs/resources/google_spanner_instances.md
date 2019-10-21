@@ -1,0 +1,33 @@
+---
+title: About the google_spanner_instances resource
+platform: gcp
+---
+
+## Syntax
+A `google_spanner_instances` is used to test a Google Instance resource
+
+## Examples
+```
+
+describe google_spanner_instances(project: 'chef-gcp-inspec', config: 'regional-us-east1') do
+  its('configs') { should eq 'regional-us-east1' }
+end
+```
+
+## Properties
+Properties that can be accessed from the `google_spanner_instances` resource:
+
+See [google_spanner_instance.md](google_spanner_instance.md) for more detailed information
+  * `names`: an array of `google_spanner_instance` name
+  * `configs`: an array of `google_spanner_instance` config
+  * `display_names`: an array of `google_spanner_instance` display_name
+  * `node_counts`: an array of `google_spanner_instance` node_count
+  * `labels`: an array of `google_spanner_instance` labels
+
+## Filter Criteria
+This resource supports all of the above properties as filter criteria, which can be used
+with `where` as a block or a method.
+
+## GCP Permissions
+
+Ensure the [Cloud Spanner API](https://console.cloud.google.com/apis/library/spanner.googleapis.com/) is enabled for the current project.
