@@ -1,0 +1,30 @@
+---
+title: About the google_spanner_databases resource
+platform: gcp
+---
+
+## Syntax
+A `google_spanner_databases` is used to test a Google Database resource
+
+## Examples
+```
+
+describe google_spanner_databases(project: 'chef-gcp-inspec', instance: 'spinstance') do
+  its('instances') { should eq 'spinstance' }
+end
+```
+
+## Properties
+Properties that can be accessed from the `google_spanner_databases` resource:
+
+See [google_spanner_database.md](google_spanner_database.md) for more detailed information
+  * `names`: an array of `google_spanner_database` name
+  * `instances`: an array of `google_spanner_database` instance
+
+## Filter Criteria
+This resource supports all of the above properties as filter criteria, which can be used
+with `where` as a block or a method.
+
+## GCP Permissions
+
+Ensure the [Cloud Spanner API](https://console.cloud.google.com/apis/library/spanner.googleapis.com/) is enabled for the current project.
