@@ -30,41 +30,41 @@ end
 Properties that can be accessed from the `google_compute_url_map` resource:
 
 
+  * `id`: The unique identifier for the resource.
+
   * `creation_timestamp`: Creation timestamp in RFC3339 text format.
 
-  * `default_service`: A reference to BackendService resource if none of the hostRules match.
+  * `default_service`: The BackendService resource to which traffic is directed if none of the hostRules match. If defaultRouteAction is additionally specified, advanced routing actions like URL Rewrites, etc. take effect prior to sending the request to the backend. However, if defaultService is specified, defaultRouteAction cannot contain any weightedBackendServices. Conversely, if routeAction specifies any weightedBackendServices, service must not be specified. Only one of defaultService, defaultUrlRedirect  or defaultRouteAction.weightedBackendService must be set.
 
   * `description`: An optional description of this resource. Provide this property when you create the resource.
 
+  * `fingerprint`: Fingerprint of this resource. A hash of the contents stored in this object. This field is used in optimistic locking.
+
   * `host_rules`: The list of HostRules to use against the URL.
 
-    * `description`: An optional description of this HostRule. Provide this property when you create the resource.
+    * `description`: An optional description of this resource. Provide this property when you create the resource.
 
     * `hosts`: The list of host patterns to match. They must be valid hostnames, except * will match any string of ([a-z0-9-.]*). In that case, * must be the first character and must be followed in the pattern by either - or ..
 
     * `path_matcher`: The name of the PathMatcher to use to match the path portion of the URL if the hostRule matches the URL's host portion.
 
-  * `id`: The unique identifier for the resource.
-
-  * `fingerprint`: Fingerprint of this resource. This field is used internally during updates of this resource.
-
   * `name`: Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
 
   * `path_matchers`: The list of named PathMatchers to use against the URL.
 
-    * `default_service`: A reference to a BackendService resource. This will be used if none of the pathRules defined by this PathMatcher is matched by the URL's path portion.
+    * `default_service`: The BackendService resource. This will be used if none of the pathRules or routeRules defined by this PathMatcher are matched. For example, the following are all valid URLs to a BackendService resource:   - http s://www.googleapis.com/compute/v1/projects/project/global/backendServices/backen dService  - compute/v1/projects/project/global/backendServices/backendService  - global/backendServices/backendService  If defaultRouteAction is additionally specified, advanced routing actions like URL Rewrites, etc. take effect prior to sending the request to the backend. However, if defaultService is specified, defaultRouteAction cannot contain any weightedBackendServices. Conversely, if defaultRouteAction specifies any weightedBackendServices, defaultService must not be specified. Only one of defaultService, defaultUrlRedirect  or defaultRouteAction.weightedBackendService must be set. Authorization requires one or more of the following Google IAM permissions on the specified resource default_service:   - compute.backendBuckets.use  - compute.backendServices.use
 
-    * `description`: An optional description of this resource.
+    * `description`: An optional description of this resource. Provide this property when you create the resource.
 
     * `name`: The name to which this PathMatcher is referred by the HostRule.
 
-    * `path_rules`: The list of path rules.
+    * `path_rules`: The list of path rules. Use this list instead of routeRules when routing based on simple path matching is all that's required. The order by which path rules are specified does not matter. Matches are always done on the longest-path-first basis. For example: a pathRule with a path /a/b/c/* will match before /a/b/* irrespective of the order in which those paths appear in this list. Within a given pathMatcher, only one of pathRules or routeRules must be set.
+
+      * `service`: The backend service resource to which traffic is directed if this rule is matched. If routeAction is additionally specified, advanced routing actions like URL Rewrites, etc. take effect prior to sending the request to the backend. However, if service is specified, routeAction cannot contain any weightedBackendService s. Conversely, if routeAction specifies any weightedBackendServices, service must not be specified. Only one of urlRedirect, service or routeAction.weightedBackendService must be set.
 
       * `paths`: The list of path patterns to match. Each must start with / and the only place a * is allowed is at the end following a /. The string fed to the path matcher does not include any text after the first ? or #, and those chars are not allowed here.
 
-      * `service`: A reference to the BackendService resource if this rule is matched.
-
-  * `tests`: The list of expected URL mappings. Requests to update this UrlMap will succeed only if all of the test cases pass.
+  * `tests`: The list of expected URL mapping tests. Request to update this UrlMap will succeed only if all of the test cases pass. You can specify a maximum of 100 tests per UrlMap.
 
     * `description`: Description of this test case.
 
@@ -72,7 +72,7 @@ Properties that can be accessed from the `google_compute_url_map` resource:
 
     * `path`: Path portion of the URL.
 
-    * `service`: A reference to expected BackendService resource the given URL should be mapped to.
+    * `service`: Expected BackendService resource the given URL should be mapped to.
 
 
 ## GCP Permissions

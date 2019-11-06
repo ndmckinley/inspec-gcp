@@ -17,12 +17,12 @@ end
 Properties that can be accessed from the `google_compute_url_maps` resource:
 
 See [google_compute_url_map.md](google_compute_url_map.md) for more detailed information
+  * `ids`: an array of `google_compute_url_map` id
   * `creation_timestamps`: an array of `google_compute_url_map` creation_timestamp
   * `default_services`: an array of `google_compute_url_map` default_service
   * `descriptions`: an array of `google_compute_url_map` description
-  * `host_rules`: an array of `google_compute_url_map` host_rules
-  * `ids`: an array of `google_compute_url_map` id
   * `fingerprints`: an array of `google_compute_url_map` fingerprint
+  * `host_rules`: an array of `google_compute_url_map` host_rules
   * `names`: an array of `google_compute_url_map` name
   * `path_matchers`: an array of `google_compute_url_map` path_matchers
   * `tests`: an array of `google_compute_url_map` tests

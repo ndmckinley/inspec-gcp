@@ -17,15 +17,15 @@ module GoogleInSpec
   module Compute
     module Property
       class UrlMapPathMatchersPathRules
-        attr_reader :paths
-
         attr_reader :service
+
+        attr_reader :paths
 
         def initialize(args = nil, parent_identifier = nil)
           return if args.nil?
           @parent_identifier = parent_identifier
-          @paths = args['paths']
           @service = args['service']
+          @paths = args['paths']
         end
 
         def to_s
