@@ -25,12 +25,12 @@ class ComputeUrlMap < GcpResourceBase
   supports platform: 'gcp'
 
   attr_reader :params
+  attr_reader :id
   attr_reader :creation_timestamp
   attr_reader :default_service
   attr_reader :description
-  attr_reader :host_rules
-  attr_reader :id
   attr_reader :fingerprint
+  attr_reader :host_rules
   attr_reader :name
   attr_reader :path_matchers
   attr_reader :tests
@@ -43,12 +43,12 @@ class ComputeUrlMap < GcpResourceBase
   end
 
   def parse
+    @id = @fetched['id']
     @creation_timestamp = parse_time_string(@fetched['creationTimestamp'])
     @default_service = @fetched['defaultService']
     @description = @fetched['description']
-    @host_rules = GoogleInSpec::Compute::Property::UrlMapHostRulesArray.parse(@fetched['hostRules'], to_s)
-    @id = @fetched['id']
     @fingerprint = @fetched['fingerprint']
+    @host_rules = GoogleInSpec::Compute::Property::UrlMapHostRulesArray.parse(@fetched['hostRules'], to_s)
     @name = @fetched['name']
     @path_matchers = GoogleInSpec::Compute::Property::UrlMapPathMatchersArray.parse(@fetched['pathMatchers'], to_s)
     @tests = GoogleInSpec::Compute::Property::UrlMapTestsArray.parse(@fetched['tests'], to_s)

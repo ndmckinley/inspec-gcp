@@ -22,17 +22,17 @@ module GoogleInSpec
 
         attr_reader :description
 
-        attr_reader :name
-
         attr_reader :path_rules
+
+        attr_reader :name
 
         def initialize(args = nil, parent_identifier = nil)
           return if args.nil?
           @parent_identifier = parent_identifier
           @default_service = args['defaultService']
           @description = args['description']
-          @name = args['name']
           @path_rules = GoogleInSpec::Compute::Property::UrlMapPathMatchersPathRulesArray.parse(args['pathRules'], to_s)
+          @name = args['name']
         end
 
         def to_s

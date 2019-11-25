@@ -23,12 +23,12 @@ class ComputeUrlMaps < GcpResourceBase
 
   filter_table_config = FilterTable.create
 
+  filter_table_config.add(:ids, field: :id)
   filter_table_config.add(:creation_timestamps, field: :creation_timestamp)
   filter_table_config.add(:default_services, field: :default_service)
   filter_table_config.add(:descriptions, field: :description)
-  filter_table_config.add(:host_rules, field: :host_rules)
-  filter_table_config.add(:ids, field: :id)
   filter_table_config.add(:fingerprints, field: :fingerprint)
+  filter_table_config.add(:host_rules, field: :host_rules)
   filter_table_config.add(:names, field: :name)
   filter_table_config.add(:path_matchers, field: :path_matchers)
   filter_table_config.add(:tests, field: :tests)
@@ -71,12 +71,12 @@ class ComputeUrlMaps < GcpResourceBase
 
   def transformers
     {
+      'id' => ->(obj) { return :id, obj['id'] },
       'creationTimestamp' => ->(obj) { return :creation_timestamp, parse_time_string(obj['creationTimestamp']) },
       'defaultService' => ->(obj) { return :default_service, obj['defaultService'] },
       'description' => ->(obj) { return :description, obj['description'] },
-      'hostRules' => ->(obj) { return :host_rules, GoogleInSpec::Compute::Property::UrlMapHostRulesArray.parse(obj['hostRules'], to_s) },
-      'id' => ->(obj) { return :id, obj['id'] },
       'fingerprint' => ->(obj) { return :fingerprint, obj['fingerprint'] },
+      'hostRules' => ->(obj) { return :host_rules, GoogleInSpec::Compute::Property::UrlMapHostRulesArray.parse(obj['hostRules'], to_s) },
       'name' => ->(obj) { return :name, obj['name'] },
       'pathMatchers' => ->(obj) { return :path_matchers, GoogleInSpec::Compute::Property::UrlMapPathMatchersArray.parse(obj['pathMatchers'], to_s) },
       'tests' => ->(obj) { return :tests, GoogleInSpec::Compute::Property::UrlMapTestsArray.parse(obj['tests'], to_s) },
