@@ -105,7 +105,7 @@ class RedisInstances < GcpResourceBase
   private
 
   def product_url
-    'https://redis.googleapis.com/v1/'
+    'https://redis.googleapis.com/v1beta1/'
   end
 
   def resource_base_url

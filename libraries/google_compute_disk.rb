@@ -39,6 +39,7 @@ class ComputeDisk < GcpResourceBase
   attr_reader :physical_block_size_bytes
   attr_reader :type
   attr_reader :source_image
+  attr_reader :resource_policies
   attr_reader :zone
   attr_reader :source_image_encryption_key
   attr_reader :source_image_id
@@ -69,6 +70,7 @@ class ComputeDisk < GcpResourceBase
     @physical_block_size_bytes = @fetched['physicalBlockSizeBytes']
     @type = @fetched['type']
     @source_image = @fetched['sourceImage']
+    @resource_policies = @fetched['resourcePolicies']
     @zone = @fetched['zone']
     @source_image_encryption_key = GoogleInSpec::Compute::Property::DiskSourceImageEncryptionKey.new(@fetched['sourceImageEncryptionKey'], to_s)
     @source_image_id = @fetched['sourceImageId']
@@ -94,7 +96,7 @@ class ComputeDisk < GcpResourceBase
   private
 
   def product_url
-    'https://www.googleapis.com/compute/v1/'
+    'https://www.googleapis.com/compute/beta/'
   end
 
   def resource_base_url

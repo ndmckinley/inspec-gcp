@@ -27,6 +27,8 @@ class ComputeGlobalAddress < GcpResourceBase
   attr_reader :description
   attr_reader :id
   attr_reader :name
+  attr_reader :labels
+  attr_reader :label_fingerprint
   attr_reader :ip_version
   attr_reader :region
   attr_reader :prefix_length
@@ -47,6 +49,8 @@ class ComputeGlobalAddress < GcpResourceBase
     @description = @fetched['description']
     @id = @fetched['id']
     @name = @fetched['name']
+    @labels = @fetched['labels']
+    @label_fingerprint = @fetched['labelFingerprint']
     @ip_version = @fetched['ipVersion']
     @region = @fetched['region']
     @prefix_length = @fetched['prefixLength']
@@ -71,7 +75,7 @@ class ComputeGlobalAddress < GcpResourceBase
   private
 
   def product_url
-    'https://www.googleapis.com/compute/v1/'
+    'https://www.googleapis.com/compute/beta/'
   end
 
   def resource_base_url

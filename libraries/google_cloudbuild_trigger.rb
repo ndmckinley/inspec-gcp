@@ -16,6 +16,9 @@
 require 'gcp_backend'
 require 'google/cloudbuild/property/trigger_build'
 require 'google/cloudbuild/property/trigger_build_steps'
+require 'google/cloudbuild/property/trigger_github'
+require 'google/cloudbuild/property/trigger_github_pull_request'
+require 'google/cloudbuild/property/trigger_github_push'
 require 'google/cloudbuild/property/trigger_trigger_template'
 
 # A provider to manage Cloud Build resources.
@@ -35,6 +38,7 @@ class CloudBuildTrigger < GcpResourceBase
   attr_reader :ignored_files
   attr_reader :included_files
   attr_reader :trigger_template
+  attr_reader :github
   attr_reader :build
 
   def initialize(params)
@@ -55,6 +59,7 @@ class CloudBuildTrigger < GcpResourceBase
     @ignored_files = @fetched['ignoredFiles']
     @included_files = @fetched['includedFiles']
     @trigger_template = GoogleInSpec::CloudBuild::Property::TriggerTriggerTemplate.new(@fetched['triggerTemplate'], to_s)
+    @github = GoogleInSpec::CloudBuild::Property::TriggerGithub.new(@fetched['github'], to_s)
     @build = GoogleInSpec::CloudBuild::Property::TriggerBuild.new(@fetched['build'], to_s)
   end
 
