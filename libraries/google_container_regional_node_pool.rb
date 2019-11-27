@@ -83,7 +83,7 @@ class ContainerRegionalNodePool < GcpResourceBase
   private
 
   def product_url
-    'https://container.googleapis.com/v1/'
+    'https://container.googleapis.com/v1beta1/'
   end
 
   def resource_base_url

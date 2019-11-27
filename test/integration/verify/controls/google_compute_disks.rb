@@ -33,6 +33,5 @@ control 'google_compute_disks-1.0' do
   describe google_compute_disks(project: gcp_project_id, zone: gcp_zone) do
     it { should exist }
     its('names') { should include snapshot['disk_name'] }
-    its('source_images') { should include most_recent_image.self_link }
   end
 end

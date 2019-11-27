@@ -75,7 +75,7 @@ class ComputeTargetPool < GcpResourceBase
   private
 
   def product_url
-    'https://www.googleapis.com/compute/v1/'
+    'https://www.googleapis.com/compute/beta/'
   end
 
   def resource_base_url

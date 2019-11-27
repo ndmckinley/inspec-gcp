@@ -34,6 +34,7 @@ class ComputeRoutes < GcpResourceBase
   filter_table_config.add(:next_hop_ips, field: :next_hop_ip)
   filter_table_config.add(:next_hop_vpn_tunnels, field: :next_hop_vpn_tunnel)
   filter_table_config.add(:next_hop_networks, field: :next_hop_network)
+  filter_table_config.add(:next_hop_ilbs, field: :next_hop_ilb)
 
   filter_table_config.connect(self, :table)
 
@@ -84,6 +85,7 @@ class ComputeRoutes < GcpResourceBase
       'nextHopIp' => ->(obj) { return :next_hop_ip, obj['nextHopIp'] },
       'nextHopVpnTunnel' => ->(obj) { return :next_hop_vpn_tunnel, obj['nextHopVpnTunnel'] },
       'nextHopNetwork' => ->(obj) { return :next_hop_network, obj['nextHopNetwork'] },
+      'nextHopIlb' => ->(obj) { return :next_hop_ilb, obj['nextHopIlb'] },
     }
   end
 
@@ -95,7 +97,7 @@ class ComputeRoutes < GcpResourceBase
   private
 
   def product_url
-    'https://www.googleapis.com/compute/v1/'
+    'https://www.googleapis.com/compute/beta/'
   end
 
   def resource_base_url

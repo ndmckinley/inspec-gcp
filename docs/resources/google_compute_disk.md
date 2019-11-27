@@ -14,7 +14,7 @@ most_recent_image = google_compute_image(project: 'debian-cloud', name: 'debian-
 describe google_compute_disk(project: 'chef-gcp-inspec', name: 'inspec-snapshot-disk', zone: 'zone') do
   it { should exist }
   # Test that the image is the most recent image for the family
-  its('source_image') { should match most_recent_image.self_link }
+  its('source_image') { should match most_recent_image.self_link.split('projects/').last }
   its('type') { should match 'pd-standard' }
 end
 
@@ -62,6 +62,8 @@ Properties that can be accessed from the `google_compute_disk` resource:
   * `type`: URL of the disk type resource describing which disk type to use to create the disk. Provide this when creating the disk.
 
   * `source_image`: The source image used to create this disk. If the source image is deleted, this field will not be set.  To create a disk with one of the public operating system images, specify the image by its family name. For example, specify family/debian-8 to use the latest Debian 8 image:  projects/debian-cloud/global/images/family/debian-8  Alternatively, use a specific version of a public operating system image:  projects/debian-cloud/global/images/debian-8-jessie-vYYYYMMDD  To create a disk with a private image that you created, specify the image name in the following format:  global/images/my-private-image  You can also specify a private image by its image family, which returns the latest version of the image in that family. Replace the image name with family/family-name:  global/images/family/my-private-family
+
+  * `resource_policies`: Resource policies applied to this disk for automatic snapshot creations.
 
   * `zone`: A reference to the zone where the disk resides.
 

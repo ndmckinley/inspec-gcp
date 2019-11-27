@@ -72,7 +72,7 @@ class DNSResourceRecordSet < GcpResourceBase
   private
 
   def product_url
-    'https://www.googleapis.com/dns/v1/'
+    'https://www.googleapis.com/dns/v1beta2/'
   end
 
   def resource_base_url

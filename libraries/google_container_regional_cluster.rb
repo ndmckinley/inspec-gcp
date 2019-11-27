@@ -50,6 +50,8 @@ class ContainerRegionalCluster < GcpResourceBase
   attr_reader :network
   attr_reader :private_cluster_config
   attr_reader :cluster_ipv4_cidr
+  attr_reader :enable_tpu
+  attr_reader :tpu_ipv4_cidr_block
   attr_reader :addons_config
   attr_reader :subnetwork
   attr_reader :locations
@@ -94,6 +96,8 @@ class ContainerRegionalCluster < GcpResourceBase
     @network = @fetched['network']
     @private_cluster_config = GoogleInSpec::Container::Property::RegionalClusterPrivateClusterConfig.new(@fetched['privateClusterConfig'], to_s)
     @cluster_ipv4_cidr = @fetched['clusterIpv4Cidr']
+    @enable_tpu = @fetched['enableTpu']
+    @tpu_ipv4_cidr_block = @fetched['tpuIpv4CidrBlock']
     @addons_config = GoogleInSpec::Container::Property::RegionalClusterAddonsConfig.new(@fetched['addonsConfig'], to_s)
     @subnetwork = @fetched['subnetwork']
     @locations = @fetched['locations']
@@ -137,7 +141,7 @@ class ContainerRegionalCluster < GcpResourceBase
   private
 
   def product_url
-    'https://container.googleapis.com/v1/'
+    'https://container.googleapis.com/v1beta1/'
   end
 
   def resource_base_url

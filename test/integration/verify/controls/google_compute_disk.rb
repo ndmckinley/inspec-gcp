@@ -35,7 +35,7 @@ control 'google_compute_disk-1.0' do
   describe google_compute_disk(project: gcp_project_id, name: gcp_compute_disk_name, zone: gcp_zone) do
     it { should exist }
     # Test that the image is the most recent image for the family
-    its('source_image') { should match most_recent_image.self_link }
+    its('source_image') { should match most_recent_image.self_link.split('projects/').last }
     its('type') { should match gcp_compute_disk_type }
   end
 

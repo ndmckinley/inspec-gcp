@@ -37,6 +37,7 @@ class ComputeDisks < GcpResourceBase
   filter_table_config.add(:physical_block_size_bytes, field: :physical_block_size_bytes)
   filter_table_config.add(:types, field: :type)
   filter_table_config.add(:source_images, field: :source_image)
+  filter_table_config.add(:resource_policies, field: :resource_policies)
   filter_table_config.add(:zones, field: :zone)
   filter_table_config.add(:source_image_encryption_keys, field: :source_image_encryption_key)
   filter_table_config.add(:source_image_ids, field: :source_image_id)
@@ -97,6 +98,7 @@ class ComputeDisks < GcpResourceBase
       'physicalBlockSizeBytes' => ->(obj) { return :physical_block_size_bytes, obj['physicalBlockSizeBytes'] },
       'type' => ->(obj) { return :type, obj['type'] },
       'sourceImage' => ->(obj) { return :source_image, obj['sourceImage'] },
+      'resourcePolicies' => ->(obj) { return :resource_policies, obj['resourcePolicies'] },
       'zone' => ->(obj) { return :zone, obj['zone'] },
       'sourceImageEncryptionKey' => ->(obj) { return :source_image_encryption_key, GoogleInSpec::Compute::Property::DiskSourceImageEncryptionKey.new(obj['sourceImageEncryptionKey'], to_s) },
       'sourceImageId' => ->(obj) { return :source_image_id, obj['sourceImageId'] },
@@ -115,7 +117,7 @@ class ComputeDisks < GcpResourceBase
   private
 
   def product_url
-    'https://www.googleapis.com/compute/v1/'
+    'https://www.googleapis.com/compute/beta/'
   end
 
   def resource_base_url

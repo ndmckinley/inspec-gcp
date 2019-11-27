@@ -12,7 +12,6 @@ most_recent_image = google_compute_image(project: 'debian-cloud', name: 'debian-
 describe google_compute_disks(project: 'chef-gcp-inspec', zone: 'zone') do
   it { should exist }
   its('names') { should include 'inspec-snapshot-disk' }
-  its('source_images') { should include most_recent_image.self_link }
 end
 ```
 
@@ -34,6 +33,7 @@ See [google_compute_disk.md](google_compute_disk.md) for more detailed informati
   * `physical_block_size_bytes`: an array of `google_compute_disk` physical_block_size_bytes
   * `types`: an array of `google_compute_disk` type
   * `source_images`: an array of `google_compute_disk` source_image
+  * `resource_policies`: an array of `google_compute_disk` resource_policies
   * `zones`: an array of `google_compute_disk` zone
   * `source_image_encryption_keys`: an array of `google_compute_disk` source_image_encryption_key
   * `source_image_ids`: an array of `google_compute_disk` source_image_id

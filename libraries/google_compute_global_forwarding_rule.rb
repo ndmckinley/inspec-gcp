@@ -29,6 +29,8 @@ class ComputeGlobalForwardingRule < GcpResourceBase
   attr_reader :ip_address
   attr_reader :ip_protocol
   attr_reader :ip_version
+  attr_reader :labels
+  attr_reader :label_fingerprint
   attr_reader :load_balancing_scheme
   attr_reader :metadata_filters
   attr_reader :name
@@ -50,6 +52,8 @@ class ComputeGlobalForwardingRule < GcpResourceBase
     @ip_address = @fetched['IPAddress']
     @ip_protocol = @fetched['IPProtocol']
     @ip_version = @fetched['ipVersion']
+    @labels = @fetched['labels']
+    @label_fingerprint = @fetched['labelFingerprint']
     @load_balancing_scheme = @fetched['loadBalancingScheme']
     @metadata_filters = GoogleInSpec::Compute::Property::GlobalForwardingRuleMetadataFiltersArray.parse(@fetched['metadataFilters'], to_s)
     @name = @fetched['name']
@@ -74,7 +78,7 @@ class ComputeGlobalForwardingRule < GcpResourceBase
   private
 
   def product_url
-    'https://www.googleapis.com/compute/v1/'
+    'https://www.googleapis.com/compute/beta/'
   end
 
   def resource_base_url

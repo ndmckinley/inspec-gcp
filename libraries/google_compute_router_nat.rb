@@ -27,6 +27,7 @@ class ComputeRouterNat < GcpResourceBase
   attr_reader :name
   attr_reader :nat_ip_allocate_option
   attr_reader :nat_ips
+  attr_reader :drain_nat_ips
   attr_reader :source_subnetwork_ip_ranges_to_nat
   attr_reader :subnetwork
   attr_reader :min_ports_per_vm
@@ -62,6 +63,7 @@ class ComputeRouterNat < GcpResourceBase
     @name = @fetched['name']
     @nat_ip_allocate_option = @fetched['natIpAllocateOption']
     @nat_ips = @fetched['natIps']
+    @drain_nat_ips = @fetched['drainNatIps']
     @source_subnetwork_ip_ranges_to_nat = @fetched['sourceSubnetworkIpRangesToNat']
     @subnetwork = GoogleInSpec::Compute::Property::RouterNatSubnetworkArray.parse(@fetched['subnetworks'], to_s)
     @min_ports_per_vm = @fetched['minPortsPerVm']
@@ -90,7 +92,7 @@ class ComputeRouterNat < GcpResourceBase
   private
 
   def product_url
-    'https://www.googleapis.com/compute/v1/'
+    'https://www.googleapis.com/compute/beta/'
   end
 
   def resource_base_url
