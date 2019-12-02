@@ -22,8 +22,6 @@ module GoogleInSpec
 
         attr_reader :images
 
-        attr_reader :timeout
-
         attr_reader :steps
 
         def initialize(args = nil, parent_identifier = nil)
@@ -31,7 +29,6 @@ module GoogleInSpec
           @parent_identifier = parent_identifier
           @tags = args['tags']
           @images = args['images']
-          @timeout = args['timeout']
           @steps = GoogleInSpec::CloudBuild::Property::TriggerBuildStepsArray.parse(args['steps'], to_s)
         end
 
